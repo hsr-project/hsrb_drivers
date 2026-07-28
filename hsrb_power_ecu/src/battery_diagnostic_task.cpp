@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2025 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -57,8 +57,8 @@ BatteryDiagnosticTask::BatteryDiagnosticTask(const rclcpp::Node::SharedPtr& node
 
 void BatteryDiagnosticTask::run(diagnostic_updater::DiagnosticStatusWrapper& stat) {
   std::string message = "Battery Level: " + std::to_string(*relative_capacity_) + " %";
-  // The power ECU indicates charging with a negative current value
-  // On the other hand, in general definitions (such as sensor_msgs::msg::BatteryState), charging is indicated by a positive current value, so the sign is inverted
+  // The power ECU indicates charging when the current value is negative
+  // On the other hand, in general definitions (e.g., sensor_msgs::msg::BatteryState), charging is indicated when the current value is positive, so the sign is inverted
   if (*electric_current_ < 0) {
     // Charging
     stat.summary(diagnostic_msgs::msg::DiagnosticStatus::OK, message);

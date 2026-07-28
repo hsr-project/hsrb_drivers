@@ -2,6 +2,15 @@
 Changelog for package hsrb_digital_io
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+3.0.0 (2026-06-29)
+-------------------
+* Migration to ROS2 jazzy
+* Contributors: Keisuke Takeshita, Shigeo Tsuduki
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Changelog for package hsrb_digital_io
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 2.2.1 (2025-12-05)
 -------------------
 * Add cases where the cgos driver is absent

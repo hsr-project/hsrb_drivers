@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -42,8 +42,8 @@ namespace com_common {
 
 /**
  * @brief crc32 checksum calculation
- * @param[in] start_it Iterator to the start of the checksum string
- * @param[in] end_it Iterator to the end of the checksum string
+ * @param[in] start_it Start iterator of the checksum string
+ * @param[in] end_it End iterator of the checksum string
  * @return Checksum result
  */
 uint32_t CalculateCrc32(std::string::const_iterator start_it, std::string::const_iterator end_it) {
@@ -54,8 +54,8 @@ uint32_t CalculateCrc32(std::string::const_iterator start_it, std::string::const
 
 /**
  * @brief crc32 checksum calculation
- * @param[in] start_it Iterator to the start of the checksum string
- * @param[in] end_it Iterator to the end of the checksum string
+ * @param[in] start_it Start iterator of the checksum string
+ * @param[in] end_it End iterator of the checksum string
  * @return Checksum result
  */
 uint32_t CalculateCrc32(hsrb_power_ecu::PacketBuffer::const_iterator start_it,

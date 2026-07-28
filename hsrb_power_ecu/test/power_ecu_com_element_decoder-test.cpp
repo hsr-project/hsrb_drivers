@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -60,7 +60,7 @@ void ElementUintDecoderTestHelper(const size_t digits, const boost::array<std::s
   {
     SCOPED_TRACE("failue digits");
     std::string bad_string = "";
-    // One digit more
+    // 1 digit more
     for (size_t i = 0; i < digits + 1; ++i) {
       bad_string += "0";
     }
@@ -79,7 +79,7 @@ void ElementUintDecoderTestHelper(const size_t digits, const boost::array<std::s
   {
     SCOPED_TRACE("failue digits");
     std::string bad_string = "";
-    // One digit less
+    // 1 digit less
     for (size_t i = 0; i < digits - 1; ++i) {
       bad_string += "0";
     }
@@ -115,7 +115,7 @@ void ElementHexUintDecoderTestHelper(const size_t digits, const boost::array<std
   {
     SCOPED_TRACE("failue digits");
     std::string bad_string = "h";
-    // One digit more
+    // 1 digit more
     for (size_t i = 0; i < digits + 1; ++i) {
       bad_string += "0";
     }
@@ -134,7 +134,7 @@ void ElementHexUintDecoderTestHelper(const size_t digits, const boost::array<std
   {
     SCOPED_TRACE("failue digits");
     std::string bad_string = "h";
-    // One digit less
+    // 1 digit less
     for (size_t i = 0; i < digits - 1; ++i) {
       bad_string += "0";
     }
@@ -170,7 +170,7 @@ void ElementIntDecoderTestHelper(const size_t digits, const boost::array<std::st
   {
     SCOPED_TRACE("failue digits");
     std::string bad_string = " ";
-    // One digit more
+    // 1 digit more
     for (size_t i = 0; i < digits + 1; ++i) {
       bad_string += "0";
     }
@@ -189,7 +189,7 @@ void ElementIntDecoderTestHelper(const size_t digits, const boost::array<std::st
   {
     SCOPED_TRACE("failue digits");
     std::string bad_string = " ";
-    // One digit less
+    // 1 digit less
     for (size_t i = 0; i < digits - 1; ++i) {
       bad_string += "0";
     }
@@ -224,7 +224,7 @@ void ElementStringDecoderTestHelper(const size_t digits, const boost::array<std:
   {
     SCOPED_TRACE("failue digits");
     std::string bad_string = "";
-    // One digit more
+    // 1 digit more
     for (size_t i = 0; i < digits + 1; ++i) {
       bad_string += "0";
     }
@@ -243,7 +243,7 @@ void ElementStringDecoderTestHelper(const size_t digits, const boost::array<std:
   {
     SCOPED_TRACE("failue digits");
     std::string bad_string = "";
-    // One digit less
+    // 1 digit less
     for (size_t i = 0; i < digits - 1; ++i) {
       bad_string += "0";
     }

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -46,7 +46,7 @@ class SerialNetworkTest : public ::testing::Test {
 
  public:
   boost::shared_ptr<hsrb_power_ecu::SystemInterfaceMock> mock_;  //!< Mock class for system calls
-  hsrb_power_ecu::SerialNetwork network_;                        //!< Test subject
+  hsrb_power_ecu::SerialNetwork network_;                        //!< Test target
 };
 
 TEST_F(SerialNetworkTest, NomalOpen) {
@@ -64,13 +64,13 @@ TEST_F(SerialNetworkTest, NomalClose) {
   EXPECT_CALL(*mock_, Open(::testing::_, ::testing::_)).Times(1);
   EXPECT_EQ(network_.Open(), boost::system::errc::success);
 
-  // Close is called when open
+  // When open, Close is called
   EXPECT_CALL(*mock_, Close(::testing::_)).Times(1);
   EXPECT_EQ(network_.Close(), boost::system::errc::success);
 }
 
 TEST_F(SerialNetworkTest, NomalClose2) {
-  // Close is not called when not open
+  // When not open, Close is not called
   EXPECT_CALL(*mock_, Close(::testing::_)).Times(0);
   EXPECT_EQ(network_.Close(), boost::system::errc::success);
 }

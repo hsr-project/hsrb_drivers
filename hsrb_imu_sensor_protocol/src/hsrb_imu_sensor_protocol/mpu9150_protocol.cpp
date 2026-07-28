@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -32,21 +32,21 @@ DAMAGE.
 
 namespace hsrb_imu_sensor_protocol {
 
-// Wait time after reset [sec]
+// Waiting time after reset [sec]
 const double kMPU9150ResetDuration = 3.0;
-// Wait time after setting the acceleration zero point [sec]
+// Waiting time after setting the acceleration zero point [sec]
 const double kMPU9150AccelZeroSetDuration = 0.5;
 // Timeout for waiting for command completion to MPU9150 [sec]
 const double kMPU9150InstructionTimeout = 5.0;
 
-/// @brief Determine if the packet is a checksum-only packet with parameter 0
+/// @brief Determine if the packet has parameters set to 0 (checksum only)
 /// @param [in] packet Target for determination
-/// @return bool Returns true if the packet has parameter 0
-/// @note MPU9150 returns a packet with parameter 0
-///       upon completion of commands like reset and range setting.
-///       In such cases, the packet length is 1 (checksum only).
+/// @return bool Returns true if the packet has parameters set to 0
+/// @note MPU9150 returns a packet with parameters set to 0
+///       upon completion of commands such as reset or range setting.
+///       In such cases, the packet length becomes 1 (checksum only).
 bool IsParameterZeroPacket(const std::vector<uint8_t>& packet) {
-  // The third element of the packet is the packet length
+  // The third element of the packet represents the packet length
   if (packet.size() < 2) {
     return false;
   }
@@ -60,12 +60,12 @@ bool IsParameterZeroPacket(const std::vector<uint8_t>& packet) {
 /// @brief Constructor
 MPU9150Protocol::MPU9150Protocol(MPU9150Network& network) : network_(network), status_(kStatusWaiting) {}
 
-// Read current sensor values
+// Read the current sensor values
 MPU9150Protocol::ErrorCode MPU9150Protocol::ReadState(ImuState& state) {
-  // Do nothing unless kStatusWaiting
+  // Do nothing unless the status is kStatusWaiting
   MPU9150Protocol::ErrorCode error;
   if (status_ == kStatusWaiting) {
-    // Receive packet from MPU9150
+    // Receive packets from MPU9150
     error = network_.Receive();
     if (error) {
       return error;
@@ -91,7 +91,7 @@ MPU9150Protocol::ErrorCode MPU9150Protocol::TryReset(ResetResult& result) {
         result = kError;
         return error;
       } else {
-        // If sent successfully, set each time and change to kStatusWaitForReset
+        // If successfully sent, set each time and change status to kStatusWaitForReset
         instruction_end_time_ =
             rclcpp::Clock(RCL_ROS_TIME).now() + rclcpp::Duration::from_seconds(kMPU9150ResetDuration);
         instruction_timeout_ =
@@ -100,13 +100,13 @@ MPU9150Protocol::ErrorCode MPU9150Protocol::TryReset(ResetResult& result) {
       }
       break;
     case kStatusWaitForReset:
-      // Transition to waiting for reception state if the expected time for response from MPU9150 has passed
+      // Transition to waiting for response state if the expected response time from MPU9150 has passed
       if (rclcpp::Clock(RCL_ROS_TIME).now() > instruction_end_time_) {
         status_ = kStatusReceiveResetReturn;
       }
       break;
     case kStatusReceiveResetReturn:
-      // Receive response for reset completion
+      // Receive response indicating reset completion
       error = network_.Receive();
       if (error || !network_.is_reply_packet()) {
         // Return to kStatusWaiting if timeout is exceeded

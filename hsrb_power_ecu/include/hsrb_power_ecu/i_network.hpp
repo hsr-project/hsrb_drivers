@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -79,15 +79,15 @@ class INetwork {
   virtual boost::system::error_code Configure(const std::string &param, const std::string &value) = 0;
   /**
    * @brief Send
-   * Send all contents of the buffer received as an argument within the timeout period
+   * Transmit all contents of the buffer received as an argument within the timeout period
    * @param[in] data Buffer of transmission data
    * @return boost::system::errc::success on successful transmission
    */
   virtual boost::system::error_code Send(const PacketBuffer &data) = 0;
   /**
    * @brief Receive
-   * Store transmission data at the end of the buffer.
-   * If there is no received data, wait for reception within the timeout period.
+   * Store the transmitted data at the end of the buffer.
+   * If no received data exists, wait for reception within the timeout period.
    * @param[out] data Receive buffer
    * @return boost::system::errc::success on successful transmission
    */

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -42,7 +42,7 @@ DAMAGE.
 
 namespace hsrb_power_ecu {
 /**
- * @brief Container for color specification
+ * @brief Container for specifying colors
  *
  * @tparam T Type of color information
  */
@@ -54,15 +54,15 @@ struct Color {
 };
 
 // TODO(kitsunai): 送信コマンドで未実装の物がある
-// Power shutdown command       pdown, performs shutdown of the power ECU
-// Basic information read command           info1, reads basic information of the power ECU once
-// Optional information read command     info2, reads optional information of the power ECU once
+// Power shutdown command       pdown, shuts down the power ECU
+// Basic information read command           info1, reads the basic information of the power ECU once
+// Optional information read command     info2, reads the optional information of the power ECU once
 // Reprogram start command         rpros, starts reprogramming
 // Reprogram data command       rprod, sends data for reprogramming
 // Reprogram end command         rproe, ends reprogramming
 
 /**
- * @brief Clock synchronization command
+ * @brief Clock adjustment command
  */
 class PowerEcuComTimeDataEncoder : public IPowerEcuComDataEncoder {
  private:
@@ -136,7 +136,7 @@ class PowerEcuComStopDataEncoder : public IPowerEcuComDataEncoder {
   virtual ~PowerEcuComStopDataEncoder() {}
 };
 
-// Heartbeat                     heart, main CPU checks the survival of the power ECU
+// Heartbeat                     heart, main CPU checks the power ECU's status
 class PowerEcuComHeartDataEncoder : public IPowerEcuComDataEncoder {
  private:
   PowerEcuComHeartDataEncoder(PowerEcuComHeartDataEncoder const&);             // = delete;
@@ -148,7 +148,7 @@ class PowerEcuComHeartDataEncoder : public IPowerEcuComDataEncoder {
    */
   struct PacketData {
     uint16_t error_state;  //!< Error state                4-digit hexadecimal uint16
-    uint32_t counts;       //!< Count value (+1 for each transmission) 8-digit hexadecimal uint32
+    uint32_t counts;       //!< Count value (incremented by +1 per transmission) 8-digit hexadecimal uint32
   };
   /**
    * @brief Constructor
@@ -218,7 +218,7 @@ class PowerEcuComPbmswDataEncoder : public IPowerEcuComDataEncoder {
   PacketData packet_data_;  //!< Packet data
 };
 
-// Multi-purpose LED color specification                ledc_, specifies lighting/blinking and color of the multi-purpose LED
+// Multi-purpose LED color specification                ledc_, specifies the lighting/blinking and color of the multi-purpose LED
 class PowerEcuComLedcDataEncoder : public IPowerEcuComDataEncoder {
  private:
   PowerEcuComLedcDataEncoder(PowerEcuComLedcDataEncoder const&);             // = delete;
@@ -229,7 +229,7 @@ class PowerEcuComLedcDataEncoder : public IPowerEcuComDataEncoder {
    * @brief Internal structure of the packet
    */
   struct PacketData {
-    Color<uint8_t> led_color;  //!< Color intensity (0-255) 3-digit decimal uint8
+    Color<uint8_t> led_color;  //!< Color intensity (0–255) 3-digit decimal uint8
   };
   /**
    * @brief Constructor
@@ -356,7 +356,7 @@ class PowerEcuComMuteDataEncoder : public IPowerEcuComDataEncoder {
   PacketData packet_data_;
 };
 
-// Version information acquisition command (getv_)
+// Version information retrieval command (getv_)
 class PowerEcuComGetvDataEncoder : public IPowerEcuComDataEncoder {
  private:
   PowerEcuComGetvDataEncoder(PowerEcuComGetvDataEncoder const&);             // = delete;
@@ -411,7 +411,7 @@ class PowerEcuComUndckDataEncoder : public IPowerEcuComDataEncoder {
   PacketData packet_data_;
 };
 
-// 12Vu_ enable command (12vu_)
+// 12Vu_Enable command (12vu_)
 class PowerEcuCom12VuDataEncoder : public IPowerEcuComDataEncoder {
  private:
   PowerEcuCom12VuDataEncoder(PowerEcuCom12VuDataEncoder const&);             // = delete;
@@ -438,7 +438,7 @@ class PowerEcuCom12VuDataEncoder : public IPowerEcuComDataEncoder {
   PacketData packet_data_;
 };
 
-// 5Vd3_ enable command (5vd3_)
+// 5Vd3_Enable command (5vd3_)
 class PowerEcuCom5Vd3DataEncoder : public IPowerEcuComDataEncoder {
  private:
   PowerEcuCom5Vd3DataEncoder(PowerEcuCom5Vd3DataEncoder const&);             // = delete;
@@ -465,7 +465,7 @@ class PowerEcuCom5Vd3DataEncoder : public IPowerEcuComDataEncoder {
   PacketData packet_data_;
 };
 
-// 5Vd4_ enable command (5vd4_)
+// 5Vd4_Enable command (5vd4_)
 class PowerEcuCom5Vd4DataEncoder : public IPowerEcuComDataEncoder {
  private:
   PowerEcuCom5Vd4DataEncoder(PowerEcuCom5Vd4DataEncoder const&);             // = delete;
@@ -492,7 +492,7 @@ class PowerEcuCom5Vd4DataEncoder : public IPowerEcuComDataEncoder {
   PacketData packet_data_;
 };
 
-// 5Vd5_ enable command (5vd5_)
+// 5Vd5_Enable command (5vd5_)
 class PowerEcuCom5Vd5DataEncoder : public IPowerEcuComDataEncoder {
  private:
   PowerEcuCom5Vd5DataEncoder(PowerEcuCom5Vd5DataEncoder const&);             // = delete;

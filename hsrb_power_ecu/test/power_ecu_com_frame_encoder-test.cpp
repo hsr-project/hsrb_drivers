@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -47,7 +47,7 @@ const size_t kBufferSize = 1000;
 class FrameEncoderTest : public ::testing::Test {
  public:
   FrameEncoderTest() : buffer_(kBufferSize) {
-    // For packet comparison, use a stop packet without parameters for testing
+    // Use a stop packet without parameters for testing to compare packets
     stop_ = boost::make_shared<hsrb_power_ecu::PowerEcuComStopDataEncoder>();
     EXPECT_EQ(encoder_.RegisterDataEncoder(stop_), boost::system::errc::success);
     buffer_.clear();

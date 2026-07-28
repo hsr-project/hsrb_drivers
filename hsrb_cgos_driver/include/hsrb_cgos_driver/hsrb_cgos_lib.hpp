@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2025 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -50,14 +50,14 @@ enum HsrbCgosLibBoardClass {
 
 /// Flags for opening congatec CGOS-compliant boards
 enum HsrbCgosLibBoardOpenFlags {
-  // Scan for matches with the specified board class
+  // Scan for boards matching the specified board class
   kCgosBoardOpenFlagsDefault = 0,
-  // Scan for matches with the Primary Class board class
+  // Scan for boards where the board class matches the Primary Class
   kCgosBoardOpenFlagsPrimaryOnly = 1
 };
 
 /**
- * @brief Interface for Linux built-in functions
+ * @brief Interface for embedded Linux functions
  * Extracted to facilitate mock testing
  */
 class ISystemInterface {

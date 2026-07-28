@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -62,9 +62,9 @@ class ElementUintDecoder : public IElementDecoder {
   virtual ~ElementUintDecoder() {}
   /**
    * @brief Decode
-   * @param start_iterator Iterator of the first character to read
-   * @param end_iterator Iterator of the next character after the last one to read
-   * @return true on success
+   * @param start_iterator Iterator to the first character to read
+   * @param end_iterator Iterator to the character after the last one to read
+   * @return True on success
    */
   inline virtual bool Decode(const PacketBuffer::const_iterator start_iterator,
                              const PacketBuffer::const_iterator end_iterator) {
@@ -113,15 +113,15 @@ class ElementHexUintDecoder : public IElementDecoder {
   virtual ~ElementHexUintDecoder() {}
   /**
    * @brief Decode
-   * @param start_iterator Iterator of the first character to read
-   * @param end_iterator Iterator of the next character after the last one to read
-   * @return true on success
+   * @param start_iterator Iterator to the first character to read
+   * @param end_iterator Iterator to the character after the last one to read
+   * @return True on success
    */
   inline virtual bool Decode(const PacketBuffer::const_iterator start_iterator,
                              const PacketBuffer::const_iterator end_iterator) {
     // Digit count check
     // @uend
-    // Even if the calculation order considers operator precedence, please strictly describe it with parentheses (check other places as well)
+    // Even if the calculation order considers operator precedence, strictly use parentheses (also check other parts)
     if (((std::distance(start_iterator, end_iterator) - 1) != length_) || (*start_iterator != 'h')) {
       return false;
     }
@@ -170,13 +170,13 @@ class ElementIntDecoder : public IElementDecoder {
   virtual ~ElementIntDecoder() {}
   /**
    * @brief Decode
-   * @param start_iterator Iterator of the first character to read
-   * @param end_iterator Iterator of the next character after the last one to read
-   * @return true on success
+   * @param start_iterator Iterator to the first character to read
+   * @param end_iterator Iterator to the character after the last one to read
+   * @return True on success
    */
   inline virtual bool Decode(const PacketBuffer::const_iterator start_iterator,
                              const PacketBuffer::const_iterator end_iterator) {
-    // Digit count confirmation
+    // Digit count check
     if ((std::distance(start_iterator, end_iterator) - 1) != length_) {
       return false;
     }
@@ -242,9 +242,9 @@ class ElementStringDecoder : public IElementDecoder {
   virtual ~ElementStringDecoder() {}
   /**
    * @brief Decode
-   * @param start_iterator Iterator of the first character to read
-   * @param end_iterator Iterator of the next character after the last one to read
-   * @return true on success
+   * @param start_iterator Iterator to the first character to read
+   * @param end_iterator Iterator to the character after the last one to read
+   * @return True on success
    */
   inline virtual bool Decode(const PacketBuffer::const_iterator start_iterator,
                              const PacketBuffer::const_iterator end_iterator) {

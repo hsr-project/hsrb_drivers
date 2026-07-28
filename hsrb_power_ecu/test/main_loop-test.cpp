@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -48,7 +48,7 @@ DAMAGE.
 
 
 namespace {
-// ECU parameter names and topic names to be published
+// Parameter names of the ECU and the topic names to be published
 const std::vector<std::pair<std::string, std::string>> kParamAndTopicNames {
   {"is_bumper_bumper1", "base_f_bumper_sensor"}, {"is_bumper_bumper2", "base_b_bumper_sensor"},
   {"is_powerecu_sw_kinoko", "emergency_stop_button"}, {"is_powerecu_sw_w_stop", "wireless_stop_button"},
@@ -183,15 +183,15 @@ class MainLoopTest : public ::testing::Test {
 
     if (!protocol_->Open()) {
       RCLCPP_FATAL(loop_node_->get_logger(), "protocol_ Open failed.");
-      FAIL();  // Currently, if network open fails, recovery is impossible
+      FAIL();  // Currently, recovery is not possible if network opening fails
     }
     if (!protocol_->Init()) {
       RCLCPP_FATAL(loop_node_->get_logger(), "protocol_ Init Failed");
-      FAIL();  // Currently, if network open fails, recovery is impossible
+      FAIL();  // Currently, recovery is not possible if network opening fails
     }
     if (protocol_->Start() != boost::system::errc::success) {
       RCLCPP_FATAL(loop_node_->get_logger(), "start failed");
-      FAIL();  // Currently, if network open fails, recovery is impossible
+      FAIL();  // Currently, recovery is not possible if network opening fails
     }
 
     led_command_subscriber_ = std::make_shared<hsrb_power_ecu::LedCommandSubscriber>(loop_node_, protocol_);
@@ -229,14 +229,14 @@ class MainLoopTest : public ::testing::Test {
     }
   }
 
-  // Used in main_loop
+  // Items used in the main_loop
   rclcpp::Node::SharedPtr loop_node_;
   boost::shared_ptr<hsrb_power_ecu::NetworkMock> network_;
   boost::shared_ptr<hsrb_power_ecu::PowerEcuProtocol> protocol_;
   std::shared_ptr<hsrb_power_ecu::LedCommandSubscriber> led_command_subscriber_;
   std::vector<std::shared_ptr<hsrb_power_ecu::IStatePublisher>> publishers_;
 
-  // Used in tests
+  // Items used in testing
   rclcpp::Node::SharedPtr test_node_;
 };
 
@@ -302,7 +302,7 @@ TEST_F(MainLoopTest, PublishRateTest) {
     return (loop_node_->get_clock()->now() - start_time > rclcpp::Duration::from_seconds(0.5));
   };
   EXPECT_NO_THROW(RunMainLoop(Timeout));
-  // Ideally 50, but implementation-dependent, so some deviation is acceptable
+  // Ideally 50, but implementation-dependent, so slight deviations are acceptable
   EXPECT_GE(runstop_checker->GetCount(), 48);
   EXPECT_LE(runstop_checker->GetCount(), 50);
 }
@@ -390,7 +390,7 @@ TEST_F(MainLoopTest, PublishedDataTest) {
   ASSERT_EQ(diagnostic_checker->GetValue("over_charge"), "False");
   ASSERT_EQ(diagnostic_checker->GetValue("relative_capacity"), "51");
 
-  // When changing the corresponding parts, check if the published items are correctly updated
+  // When changing the corresponding parts, check if the published items are also correctly updated
   body = ("0000000000,00000000000000,h00,h0000000000000063,"
           "h00000000000000000000000000000000"
           "00000000000000000000000000000000, 01000, 02000, 03000,"

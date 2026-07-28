@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -35,7 +35,7 @@ DAMAGE.
 #include "power_ecu_protocol.hpp"
 
 /**
- * @brief Sample code for the operation of battery_state_publisher that publishes battery information on a topic
+ * @brief Sample code for the operation of battery_state_publisher that publishes battery information as a topic
  */
 int32_t main(int32_t argc, char** argv) {
   // Command line parsing
@@ -48,7 +48,7 @@ int32_t main(int32_t argc, char** argv) {
     if (argc == 2) {
       // When there is one option
       if (std::string(argv[1]) == "--help") {
-        // Do not return an error when --help is specified
+        // No error is returned when --help is specified
         can_run = false;
         is_display_help = true;
       } else {

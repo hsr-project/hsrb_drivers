@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -74,15 +74,15 @@ int32_t main(int32_t argc, char** argv) {
 
   if (!protocol->Open()) {
     RCLCPP_FATAL(node->get_logger(), "Protocol Open failed.");
-    exit(EXIT_FAILURE);  // Currently, recovery is impossible if network open fails
+    exit(EXIT_FAILURE);  // Currently, recovery is not possible if network opening fails
   }
   if (!protocol->Init()) {
     RCLCPP_FATAL(node->get_logger(), "Protocol Init Failed");
-    exit(EXIT_FAILURE);  // Currently, recovery is impossible if network open fails
+    exit(EXIT_FAILURE);  // Currently, recovery is not possible if network opening fails
   }
   if (protocol->Start() != boost::system::errc::success) {
     RCLCPP_FATAL(node->get_logger(), "start failed");
-    exit(EXIT_FAILURE);  // Currently, recovery is impossible if network open fails
+    exit(EXIT_FAILURE);  // Currently, recovery is not possible if network opening fails
   }
 
   auto led_command_subscriber = std::make_shared<hsrb_power_ecu::LedCommandSubscriber>(node, protocol);

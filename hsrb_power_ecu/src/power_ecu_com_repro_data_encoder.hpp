@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -41,7 +41,7 @@ DAMAGE.
 namespace hsrb_power_ecu {
 
 /**
- * @brief Repro start command
+ * @brief Reprogram Start Command
  */
 class PowerEcuComRprosDataEncoder : public IPowerEcuComDataEncoder {
  private:
@@ -51,7 +51,7 @@ class PowerEcuComRprosDataEncoder : public IPowerEcuComDataEncoder {
  public:
   /**
    * @brief Constructor
-   * @param packet_data Packet data
+   * @param packet_data Packet Data
    */
   PowerEcuComRprosDataEncoder();
   /**
@@ -59,9 +59,9 @@ class PowerEcuComRprosDataEncoder : public IPowerEcuComDataEncoder {
    */
   virtual ~PowerEcuComRprosDataEncoder() {}
   /**
-   * @brief Parameter registration
+   * @brief Parameter Registration
    *
-   * @param[out] parameter_map Registration destination
+   * @param[out] parameter_map Registration Destination
    */
   virtual bool RegisterParameter(hsrb_power_ecu::any_type_pointer_map::Map& parameter_map);
 
@@ -71,7 +71,7 @@ class PowerEcuComRprosDataEncoder : public IPowerEcuComDataEncoder {
 };
 
 /**
- * @brief Clock synchronization command
+ * @brief Clock Synchronization Command
  */
 class PowerEcuComRprodDataEncoder : public IPowerEcuComDataEncoder {
  private:
@@ -80,14 +80,14 @@ class PowerEcuComRprodDataEncoder : public IPowerEcuComDataEncoder {
 
  public:
   /**
-   * @brief Internal structure of the packet
+   * @brief Internal Structure of Packet
    */
   struct PacketData {
-    std::string start_time;  //!< Current time
+    std::string start_time;  //!< Current Time
   };
   /**
    * @brief Constructor
-   * @param packet_data Packet data
+   * @param packet_data Packet Data
    */
   PowerEcuComRprodDataEncoder();
   /**
@@ -95,25 +95,25 @@ class PowerEcuComRprodDataEncoder : public IPowerEcuComDataEncoder {
    */
   virtual ~PowerEcuComRprodDataEncoder() {}
   /**
-   * @brief Parameter registration
+   * @brief Parameter Registration
    *
-   * @param[out] parameter_map Registration destination
+   * @param[out] parameter_map Registration Destination
    */
   virtual bool RegisterParameter(hsrb_power_ecu::any_type_pointer_map::Map& parameter_map);
   /**
    * @brief Encoding
-   * @param[out] buffer Output buffer
+   * @param[out] buffer Output Buffer
    * @return
-   * Normal termination boost::system::errc::success
-   * Encoding failure boost::system::errc::protocol_error
+   * Normal Termination boost::system::errc::success
+   * Encoding Failure boost::system::errc::protocol_error
    */
   virtual inline boost::system::error_code Encode(PacketBuffer& buffer) {
     std::copy(repro_data_.begin(), repro_data_.end(), std::back_inserter(buffer));
     return boost::system::errc::make_error_code(boost::system::errc::success);
   }
   /**
-   * @brief Get packet header size
-   * @return Packet size
+   * @brief Get Packet Header Size
+   * @return Packet Size
    */
   virtual inline std::string GetPacketSizeStr() const {
     std::stringstream sst;
@@ -126,7 +126,7 @@ class PowerEcuComRprodDataEncoder : public IPowerEcuComDataEncoder {
 };
 
 /**
- * @brief Reprogram end command
+ * @brief Reprogram End Command
  */
 class PowerEcuComRproeDataEncoder : public IPowerEcuComDataEncoder {
  private:
@@ -135,7 +135,7 @@ class PowerEcuComRproeDataEncoder : public IPowerEcuComDataEncoder {
  public:
   /**
    * @brief Constructor
-   * @param packet_data Packet data
+   * @param packet_data Packet Data
    */
   PowerEcuComRproeDataEncoder();
   /**
@@ -143,9 +143,9 @@ class PowerEcuComRproeDataEncoder : public IPowerEcuComDataEncoder {
    */
   virtual ~PowerEcuComRproeDataEncoder() {}
   /**
-   * @brief Parameter registration
+   * @brief Parameter Registration
    *
-   * @param[out] parameter_map Registration destination
+   * @param[out] parameter_map Registration Destination
    */
   virtual bool RegisterParameter(hsrb_power_ecu::any_type_pointer_map::Map& parameter_map);
 

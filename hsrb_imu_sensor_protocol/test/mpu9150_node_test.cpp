@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -25,7 +25,7 @@ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 DAMAGE.
 */
-/// @brief Test of the easy-to-use API for Invensense's gyro sensor MPU9150
+/// @brief Test of the user-friendly API for Invensense's gyro sensor MPU9150
 
 #include <chrono>
 #include <vector>
@@ -81,11 +81,11 @@ enum ProtocolStatus {
   kStatusWaiting,
   /// Waiting for reset completion
   kStatusWaitForReset,
-  /// Receiving the response of reset completion
+  /// Receiving the reply for reset completion
   kStatusReceiveResetReturn,
 };
 
-// Test of sensor value reading, normal case
+// Test for reading sensor values, normal case
 TEST_F(MPU9150NodeTest, ReadStateNormal) {
   // Preparation
   SerialCommunication sensor_port("/tmp/mpu9150_protocol_sensor", kBaudRate);
@@ -232,7 +232,7 @@ TEST_F(MPU9150NodeTest, ReadStateNormal) {
   send_packet[94] = 0x09;
   // check sum
   send_packet[95] = 0x40;
-  // Send packet
+  // Sending a packet
   WaitUntilTimuout(node_, 5.0);
   sensor_port.Send(send_packet);
   WaitUntilTimuout(node_, 5.0);
@@ -253,7 +253,7 @@ TEST_F(MPU9150NodeTest, ReadStateNormal) {
   EXPECT_NEAR(1.0 * g, imu_msg.linear_acceleration.y, kEpsilon);
   EXPECT_NEAR(0.5 * g, imu_msg.linear_acceleration.z, kEpsilon);
 }
-// Test of sensor value reading, normal case
+// Test for reading sensor values, normal case
 TEST_F(MPU9150NodeTest, ResetStatusReceiveResetReturnNormal) {
   // Preparation
   SerialCommunication sensor_port("/tmp/mpu9150_protocol_sensor", kBaudRate);

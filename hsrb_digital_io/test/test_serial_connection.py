@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+# Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 # All rights reserved.
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted (subject to the limitations in the disclaimer
@@ -71,7 +71,7 @@ def test_read(mocker):
     assert connect.front_bumper_sensor()
     assert connect.rear_bumper_sensor()
 
-    # Loading failure does not update the value
+    # Do not update the value if loading fails
     serial_mock.return_value.read.return_value = '00000'.encode()
     connect.run(0.1)
 
