@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -26,7 +26,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 DAMAGE.
 */
 /// @brief Provides a parser class for Invensense's gyro sensor MPU9150
-/// @brief Communication specifications are in arduino_sketches/tmc_invensense_mpu9150_firmware
+/// @brief Communication specifications are in arduino_skethces/tmc_invensense_mpu9150_firmware
 /// @brief Refer to Readme.md
 #include <hsrb_imu_sensor_protocol/mpu9150_packet_parser.hpp>
 
@@ -84,7 +84,7 @@ MPU9150PacketParser::ParseResult MPU9150PacketParser::TryParse(uint8_t input) {
         // Store all received packets
         all_packets_.insert(all_packets_.end(), packet_.begin(), packet_.end());
         packet_.clear();
-        // Empty content is for command response packets
+        // Empty packets are for command response
         if (length_ == 1) {
           is_reply_packet_ = true;
           return kDone;

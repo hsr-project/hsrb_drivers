@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -51,7 +51,7 @@ class System : public ISystemInterface {
       exit(EXIT_FAILURE);
     }
     // Overflow occurs because 2^63(int64) / 10^-9 / 3600 / 24 = 292
-    // Since tv_sec is 292 years after the reference value, it is ignored this time
+    // tv_sec is 292 years after the reference value, so it is ignored this time
     return static_cast<int64_t>(t.tv_sec) * 1000000000LL + static_cast<int64_t>(t.tv_nsec);
   }
 

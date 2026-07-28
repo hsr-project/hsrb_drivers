@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -79,7 +79,7 @@ class SystemInterfaceMock : public ISystemInterface {
 
   SystemInterfaceMock() {
     ON_CALL(*this, Now()).WillByDefault(::testing::Invoke(&system_, &hsrb_power_ecu::System::Now));
-    // Set the default return value for the MockMethod to write
+    // Set default return value for MockMethod
     ON_CALL(*this, Tcgetattr(::testing::_, ::testing::_)).WillByDefault(::testing::Return(0));
     ON_CALL(*this, Tcsetattr(::testing::_, ::testing::_, ::testing::_)).WillByDefault(::testing::Return(0));
     ON_CALL(*this, Tcflush(::testing::_, ::testing::_)).WillByDefault(::testing::Return(0));

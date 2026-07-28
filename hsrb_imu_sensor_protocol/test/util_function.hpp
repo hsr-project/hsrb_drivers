@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -27,7 +27,7 @@ DAMAGE.
 */
 /**
  * @file util_function.hpp
- * @brief Provides functions that perform processes commonly done in tests
+ * @brief Provides functions that perform processes commonly used in tests
  * @auther Fukukazu Kawata
  *
  *
@@ -44,17 +44,17 @@ namespace test_utils {
 using WaitFunctionType = std::function<bool()>;
 
 /**
- * @brief Wait until some condition is met
+ * @brief Waits until a certain condition is met
  *
  * @param condition_function Condition function
  * @param timeout_sec Maximum wait time (sec)
- * @param rate_hz Check cycle (hz) Default 100.0 (hz)
+ * @param rate_hz Check frequency (Hz), default is 100.0 (Hz)
  *
- * @return Condition met or unmet
+ * @return Condition met or not met
  */
 bool WaitUntil(rclcpp::Node::SharedPtr node, WaitFunctionType condition_function, double timeout_sec,
                double rate_hz = 100.0) {
-  // Error check for arguments
+  // Argument error check
   if (!condition_function) {
     throw std::invalid_argument("Function for waiting is empty.");
   }
@@ -85,7 +85,7 @@ bool WaitForTopicExistence(rclcpp::Node::SharedPtr node, const std::string& topi
     // Retrieve service list
     auto topic_names_and_types = node->get_topic_names_and_types();
 
-    // Check if service exists
+    // Check if the service exists
     for (const auto& topic : topic_names_and_types) {
       if (topic.first == ("/" + topic_name)) {
         return true;

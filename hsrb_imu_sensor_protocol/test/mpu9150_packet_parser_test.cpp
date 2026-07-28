@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -25,7 +25,7 @@ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 DAMAGE.
 */
-/// @brief Test of the parser class for Invensense's gyro sensor MPU9150
+/// @brief Test for the parser class of Invensense's gyro sensor MPU9150
 #include <gtest/gtest.h>
 
 #include <hsrb_imu_sensor_protocol/mpu9150_packet_parser.hpp>
@@ -64,7 +64,7 @@ TEST(MPU9150PacketParserTest, ParsePacketWithData) {
     EXPECT_EQ(packet_6[i], parser.packets().at(i));
   }
 
-  // Test if packets continue to accumulate until reset
+  // Test whether packets continue to accumulate until reset
   // Execute parse
   for (uint32_t i = 0; i < 5; ++i) {
     ASSERT_EQ(MPU9150PacketParser::kContinue, parser.TryParse(packet_5[i]));
@@ -162,7 +162,7 @@ TEST(MPU9150PacketParserTest, FailParser) {
   // Header 2 is incorrect
   EXPECT_EQ(MPU9150PacketParser::kContinue, parser.TryParse(packet[1] + 1));
 
-  // Data length is 0
+  // Data length is zero
   parser.Reset();
   for (uint32_t i = 0; i < 2; ++i) {
     ASSERT_EQ(MPU9150PacketParser::kContinue, parser.TryParse(packet[i]));

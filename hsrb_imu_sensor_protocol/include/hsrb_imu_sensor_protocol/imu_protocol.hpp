@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -35,9 +35,9 @@ DAMAGE.
 #include <boost/system/error_code.hpp>
 
 namespace hsrb_imu_sensor_protocol {
-/// Gyro sensor values
+/// Gyro sensor value
 struct ImuState {
-  /// Orientation, in the order of xyzw for quaternion
+  /// Orientation, quaternion in the order of xyzw
   boost::array<double, 4> orientation;
   /// Angular velocity [rad/sec]
   boost::array<double, 3> angular_velocity;
@@ -50,7 +50,7 @@ class IImuProtocol {
  public:
   typedef boost::system::error_code ErrorCode;
   virtual ~IImuProtocol() {}
-  /// Result of sensor reset
+  /// Sensor reset result
   enum ResetResult {
     /// Normal completion
     kDone,
@@ -69,7 +69,7 @@ class IImuProtocol {
   ///        Timeout: errc::timed_out
   virtual ErrorCode ReadState(ImuState& state) = 0;
   /// @brief Perform sensor reset
-  /// @param [out] result Result of reset process
+  /// @param [out] result Result of the reset process
   /// @return boost::system::error_code Error code
   /// @note This function does not wait for the reset to complete.
   ///       Continue calling until result becomes kDone or kError
@@ -86,7 +86,7 @@ class IImuProtocol {
   ///       Types of error codes
   ///         Success: errc::success
   ///         Timeout: errc::timed_out
-  ///                        The time set by timeout or
+  ///                        Timeout set by timeout or
   ///                        Communication timeout set internally
   ///                        Whichever is earlier will timeout
   ///         Communication protocol error: errc::protocol_error

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -42,7 +42,7 @@ namespace any_type_pointer_map {
 
 /**
  * @brief Interface for registered data
- * Define an interface to receive pointers by downcasting them to centrally manage various types of data
+ * Defines an interface to receive pointers by downcasting to centrally manage various types of data
  */
 class IElement : boost::noncopyable {
  public:
@@ -50,15 +50,15 @@ class IElement : boost::noncopyable {
   ~IElement() {}
 
   /**
-   * @brief Pointer acquisition
-   * Receive pointers by downcasting to centrally manage registered data regardless of type
+   * @brief Pointer retrieval
+   * Downcast and receive pointers to centrally manage registered data regardless of type
    *
    * @return
    */
   virtual void* GetPtr() const = 0;
 
   /**
-   * @brief Type data acquisition
+   * @brief Type data retrieval
    *
    * @return
    */
@@ -87,9 +87,9 @@ class Map : boost::noncopyable {
 
   /**
    * @brief Data registration
-   * Registration fails in case of multiple registrations
+   * Registration fails in case of duplicate registration
    *
-   * @tparam T Type of data
+   * @tparam T Data type
    * @param[in] name Data name
    * @param[in] value Pointer to the data
    *
@@ -105,10 +105,10 @@ class Map : boost::noncopyable {
   }
 
   /**
-   * @brief Acquisition of data pointer
-   * Fails when the data type does not match or when the data name is not registered
+   * @brief Retrieve pointer to data
+   * Fails when data type does not match or data name is not registered
    *
-   * @tparam T Type of data
+   * @tparam T Data type
    * @param[in] name Data name
    *
    * @return
@@ -122,7 +122,7 @@ class Map : boost::noncopyable {
       return NULL;  // Unregistered name
     }
     if (itr->second->GetType() != typeid(T)) {
-      return NULL;  // Different from the registered type
+      return NULL;  // Type mismatch with registered type
     } else {
       return static_cast<T*>(itr->second->GetPtr());
     }
@@ -131,7 +131,7 @@ class Map : boost::noncopyable {
   bool HasPtr(const std::string& name) const { return (dic_.find(name) != dic_.end()); }
 
  private:
-  typedef boost::unordered_map<std::string, boost::shared_ptr<IElement> > DicType;  //!< Type of dictionary
+  typedef boost::unordered_map<std::string, boost::shared_ptr<IElement> > DicType;  //!< Dictionary type
   DicType dic_;                                                                     //!< Dictionary
 };
 }  // namespace any_type_pointer_map

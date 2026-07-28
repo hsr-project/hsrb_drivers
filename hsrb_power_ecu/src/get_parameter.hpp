@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -58,7 +58,7 @@ auto GetParameter(const rclcpp::Node::SharedPtr& node,
   }
 }
 
-// Get parameters with default values, use default values even if parameters are non-positive
+// Get parameters with default values, use default values even if the parameter is invalid
 template <typename ParameterType>
 auto GetPositiveParameter(const rclcpp::Node::SharedPtr& node,
                           const std::string& name,

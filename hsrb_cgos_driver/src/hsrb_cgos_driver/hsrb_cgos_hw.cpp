@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2025 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -112,14 +112,14 @@ hardware_interface::CallbackReturn HsrbCgosHw::on_init(
 hardware_interface::CallbackReturn HsrbCgosHw::on_configure(
     const rclcpp_lifecycle::State& /*previous_state*/) {
   if (!cgos_->Initialize()) {
-    // Do not cause an error even if there is no driver
+    // Do not throw an error even if there is no driver
     RCLCPP_WARN(logger_, "CgosLib::Initialize failed.");
     cgos_handle_ = 0;
     return CallbackReturn::SUCCESS;
   }
 
   if (!cgos_->BoardOpen(kCgosBoardClassDefault, 0, kCgosBoardOpenFlagsDefault, &cgos_handle_)) {
-    RCLCPP_WARN(logger_, "CgosLib::CgosBordOpen failed.");
+    RCLCPP_FATAL(logger_, "CgosLib::CgosBordOpen failed.");
     cgos_handle_ = 0;
     return CallbackReturn::SUCCESS;
   }
@@ -142,7 +142,7 @@ hardware_interface::CallbackReturn HsrbCgosHw::on_configure(
 hardware_interface::return_type HsrbCgosHw::read(
     const rclcpp::Time& /*time*/, const rclcpp::Duration& /*period*/) {
   if (cgos_handle_ == 0) {
-    // Do nothing if there is no CGOS
+    // Do nothing if CGOS is not available
     return hardware_interface::return_type::OK;
   }
   uint32_t read_value = 0;
@@ -158,7 +158,7 @@ hardware_interface::return_type HsrbCgosHw::read(
 hardware_interface::return_type HsrbCgosHw::write(
     const rclcpp::Time& /*time*/, const rclcpp::Duration& /*period*/) {
   if (cgos_handle_ == 0) {
-    // Do nothing if there is no CGOS
+    // Do nothing if CGOS is not available
     return hardware_interface::return_type::OK;
   }
   uint32_t write_value = 0;

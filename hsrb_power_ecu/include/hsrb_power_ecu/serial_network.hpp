@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -43,21 +43,21 @@ class ISystemInterface;
 
 /**
  * @brief Serial port
- * The following specifications of the communication protocol are fixed and cannot be changed
- *     - Baud rate 3Mbps
- *     - Data bits 8bit
- *     - Parity bit None
- *     - Stop bits 1bit
+ * Among the communication specifications, the following specifications are fixed and cannot be changed
+ *     - Baud rate: 3Mbps
+ *     - Data bits: 8bit
+ *     - Parity bit: None
+ *     - Stop bit: 1bit
  *
- * The following specifications can be changed with the Configure function
- * - Communication timeout time (ms)
- *     - Type double
- *     - Key value "receive_timeout_ms"
- *     - Default value 0.3
+ * The following specifications can be changed using the Configure function
+ * - Communication timeout duration (ms)
+ *     - Type: double
+ *     - Key value: "receive_timeout_ms"
+ *     - Default value: 0.3
  * - Device name
- *     - Type std::string
- *     - Key value "device_name"
- *     - Default value "/dev/ttyUSB0"
+ *     - Type: std::string
+ *     - Key value: "device_name"
+ *     - Default value: "/dev/ttyUSB0"
  */
 class SerialNetwork : private boost::noncopyable, public INetwork {
  public:
@@ -70,48 +70,48 @@ class SerialNetwork : private boost::noncopyable, public INetwork {
   virtual ~SerialNetwork();
   /**
    * @brief Open
-   * @return On success boost::system::errc::success
+   * @return On success: boost::system::errc::success
    */
   virtual boost::system::error_code Open();
   /**
    * @brief Close
-   * @return On success boost::system::errc::success
+   * @return On success: boost::system::errc::success
    */
   virtual boost::system::error_code Close();
   /**
    * @brief Change network settings
    * @param[in] param Setting name
-   * @param[in] value Change value
-   * @return On successful transmission boost::system::errc::success
+   * @param[in] value New value
+   * @return On successful transmission: boost::system::errc::success
    */
   virtual boost::system::error_code Configure(const std::string &param, int32_t value);
   /**
    * @brief Change network settings
    * @param[in] param Setting name
-   * @param[in] value Change value
-   * @return On successful transmission boost::system::errc::success
+   * @param[in] value New value
+   * @return On successful transmission: boost::system::errc::success
    */
   virtual boost::system::error_code Configure(const std::string &param, double value);
   /**
    * @brief Change network settings
    * @param[in] param Setting name
-   * @param[in] value Change value
-   * @return On successful transmission boost::system::errc::success
+   * @param[in] value New value
+   * @return On successful transmission: boost::system::errc::success
    */
   virtual boost::system::error_code Configure(const std::string &param, const std::string &value);
   /**
-   * @brief Send
-   * Send all contents of the transmission data buffer received as an argument within the timeout period
+   * @brief Transmit
+   * Transmit all the contents of the buffer received as an argument within the timeout duration
    * @param[in] data Transmission data buffer
-   * @return On successful transmission boost::system::errc::success
+   * @return On successful transmission: boost::system::errc::success
    */
   virtual boost::system::error_code Send(const PacketBuffer &data);
   /**
    * @brief Receive
-   * Store the transmission data at the end of the buffer.
-   * If there is no received data, wait for reception within the timeout period.
-   * @param[out] data Receive buffer
-   * @return On successful transmission boost::system::errc::success
+   * Append the received data to the end of the buffer.
+   * If no data is received, wait for reception within the timeout duration.
+   * @param[out] data Reception buffer
+   * @return On successful transmission: boost::system::errc::success
    */
   virtual boost::system::error_code Receive(PacketBuffer &data);
 
@@ -122,7 +122,7 @@ class SerialNetwork : private boost::noncopyable, public INetwork {
   int fd_;                                      //!< Serial device
   std::vector<uint8_t> receive_buffer_;         //!< Receive buffer
   std::vector<uint8_t> send_buffer_;            //!< Send buffer
-  uint32_t timeout_ns_;                         //!< Timeout time
+  uint32_t timeout_ns_;                         //!< Timeout duration
   int32_t sleep_tick_;                          //!< Polling interval [ns]
   std::string port_name_;                       //!< Port name
   boost::shared_ptr<ISystemInterface> system_;  //!< System call function group

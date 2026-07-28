@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -46,21 +46,21 @@ class MPU9150Protocol : public IImuProtocol, private boost::noncopyable {
   /// @brief Read current sensor values
   /// @param [out] state Current sensor values
   /// @return ErrorCode Error code
-  /// @note During reset, do not overwrite state, return as is
+  /// @note During reset, the state is not overwritten and is returned as is
   virtual ErrorCode ReadState(ImuState& state);
 
   /// @brief Perform sensor reset
-  /// @param [out] result Result of reset process
+  /// @param [out] result Result of the reset process
   /// @return ErrorCode Error code
-  /// @note This function does not wait for reset to complete.
+  /// @note This function does not wait for the reset to complete
   ///       Continue calling until result becomes kDone or kError
-  /// @note Works correctly only when the gyro's z-axis is vertical upward
+  /// @note Works correctly only when the gyro's z-axis is vertically upward
   virtual ErrorCode TryReset(ResetResult& result);
 
   /// @brief Perform sensor reset
   /// @return ErrorCode Error code
-  /// @note This function waits for reset to complete
-  /// @note Works correctly only when the gyro's z-axis is vertical upward
+  /// @note This function waits until the reset is complete
+  /// @note Works correctly only when the gyro's z-axis is vertically upward
   virtual ErrorCode Reset(double timeout);
 
  private:
@@ -69,21 +69,21 @@ class MPU9150Protocol : public IImuProtocol, private boost::noncopyable {
   /// Packet converter from MPU9150
   MPU9150PacketConverter packet_converter_;
 
-  /// State of protocol
+  /// State of the protocol
   enum ProtocolStatus {
     /// Command waiting state
     kStatusWaiting,
     /// Waiting for reset completion
     kStatusWaitForReset,
-    /// Receive reply of reset completion
+    /// Receive reply for reset completion
     kStatusReceiveResetReturn,
   };
   /// Current state of MPU9150
   ProtocolStatus status_;
 
-  /// Time when command to MPU9150 ends
+  /// Time when the command to MPU9150 ends
   rclcpp::Time instruction_end_time_;
-  /// Timeout for waiting command completion to MPU9150
+  /// Timeout for waiting for command completion to MPU9150
   rclcpp::Time instruction_timeout_;
 };
 

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -25,7 +25,7 @@ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 DAMAGE.
 */
-/// @brief Provides the class for MPU9150
+/// @brief Provides a class for MPU9150
 #ifndef HSRB_IMU_SENSOR_PROTOCOLNODE_HPP
 #define HSRB_IMU_SENSOR_PROTOCOLNODE_HPP
 
@@ -94,7 +94,7 @@ class MPU9150Node {
   const uint32_t kRetryCount = 3;
   bool reset_imu_ = false;
 
-  // Number of cycle over judgment results to hold
+  // Number of retained results for cycle over judgment
   const int kCycleOverBufferNum = 100;
   // Interval for cycle over check [sec]
   const double kCycleOverCheckInterval = 0.1;

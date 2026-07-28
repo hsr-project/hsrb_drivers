@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -37,9 +37,9 @@ DAMAGE.
 
 namespace hsrb_imu_sensor_protocol {
 
-/// Control command header 1(@)
+/// Control command header 1 (@)
 const uint8_t kMPU9150Header1Command = 0x40;
-/// Control command header 2(G)
+/// Control command header 2 (G)
 const uint8_t kMPU9150Header2Command = 0x47;
 
 
@@ -55,7 +55,7 @@ uint8_t Checksum(InputIterator begin, InputIterator end) {
 
 
 /// Parser class for Invensense's gyro sensor MPU9150
-/// Refer to the packet specifications in the tmc_invensense_mpu9150_firmware documentation
+/// Refer to the tmc_invensense_mpu9150_firmware documentation for packet specifications
 class MPU9150PacketParser : private boost::noncopyable {
  public:
   /// Result of parse
@@ -88,7 +88,7 @@ class MPU9150PacketParser : private boost::noncopyable {
   bool is_reply_packet() const { return is_reply_packet_; }
 
  private:
-  /// Parser state, the state name indicates what the next input to be received is
+  /// Parser state, the state name indicates what the next input is
   enum State {
     /// Header 1
     kStateHeader1,
@@ -100,7 +100,7 @@ class MPU9150PacketParser : private boost::noncopyable {
     kStateData,
     /// Checksum
     kStateChecksum,
-    /// Error occurred, so nothing is accepted
+    /// Not accepting anything due to an error
     kStateNothing
   };
   /// What the next packet to be received is
@@ -109,9 +109,9 @@ class MPU9150PacketParser : private boost::noncopyable {
   std::vector<uint8_t> packet_;
   /// All packets that could be received
   std::vector<uint8_t> all_packets_;
-  /// Packet data length
+  /// Data length of the packet
   uint8_t length_;
-  /// Presence of a reply packet
+  /// Whether there is a reply packet
   bool is_reply_packet_;
 };
 }  // end of namespace hsrb_imu_sensor_protocol

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -42,7 +42,7 @@ DAMAGE.
 
 namespace hsrb_power_ecu {
 /**
- * @brief Interface for packet element encoder
+ * @brief Interface for packet element encoders
  */
 class IElementEncoder {
  public:
@@ -56,14 +56,14 @@ class IElementEncoder {
   virtual ~IElementEncoder() {}
   /**
    * @brief Encode
-   * @param[out] buffer Buffer for output
+   * @param[out] buffer Output buffer
    * @return true on successful encoding
    */
   virtual bool Encode(PacketBuffer &buffer) = 0;
 };
 
 /**
- * @brief Interface for data encoder
+ * @brief Interface for data encoders
  */
 class IPowerEcuComDataEncoder {
  private:
@@ -74,7 +74,7 @@ class IPowerEcuComDataEncoder {
   /**
    * @brief Constructor
    * @param packet_size Size of the packet header
-   * @param packet_name Type of packet in the packet header
+   * @param packet_name Packet type in the packet header
    */
   IPowerEcuComDataEncoder(const std::string &packet_size, const std::string &packet_name)
       : packet_size_(packet_size), packet_name_(packet_name) {}
@@ -86,7 +86,7 @@ class IPowerEcuComDataEncoder {
   virtual ~IPowerEcuComDataEncoder() {}
   /**
    * @brief Encode
-   * @param[out] buffer Buffer for output
+   * @param[out] buffer Output buffer
    * @return
    * Normal termination boost::system::errc::success
    * Encoding failure boost::system::errc::protocol_error
@@ -102,23 +102,23 @@ class IPowerEcuComDataEncoder {
     return boost::system::errc::make_error_code(boost::system::errc::success);
   }
   /**
-   * @brief Get size of the packet header
+   * @brief Get the size of the packet header
    * @return Packet size
    */
   virtual inline std::string GetPacketSizeStr() const { return packet_size_; }
   /**
-   * @brief Get type of packet in the packet header
+   * @brief Get the packet type in the packet header
    * @return Packet type
    */
   inline std::string GetPacketName() const { return packet_name_; }
 
   /**
-   * @brief Get pointer to data
+   * @brief Get the pointer to the data
    *
-   * @tparam T Type of data
+   * @tparam T Data type
    * @param[in] name Name of the data
    *
-   * @return On success: Pointer to data<br>
+   * @return On success: Pointer to the data<br>
    *         On failure: NULL<br>
    *         Failure occurs if the data name is unregistered or the data type does not match
    */
@@ -136,34 +136,34 @@ class IPowerEcuComDataEncoder {
 
 /**
  * @brief Frame encoder for transmission packets
- * Communication format is classified into elements of frame, data, and element.
+ * Communication format is classified into frame, data, and element components.
  *
- * Example) For command "H,ledc_,23,000,100,255,h12345678,\0",
+ * Example: For the command "H,ledc_,23,000,100,255,h12345678,\0",
  * - frame :
- *   Refers to the entire communication packet Example) "H,ledc_,23,000,100,255,h12345678,\0"
- *   Frame encoder is responsible for calculating the header and footer of the command,
- *   Frame encoder knows the specifications of the header and footer of the communication packet,
- *   Manages data encoder with the command name as the key.
+ *   Refers to the entire communication packet, e.g., "H,ledc_,23,000,100,255,h12345678,\0"
+ *   The frame encoder is responsible for calculating the header and footer of the command.
+ *   The frame encoder knows the specifications of the header and footer of the communication packet.
+ *   Manages data encoders using the command name as a key.
  *
  * - data :
- *   Indicates the part with the header and footer removed from the communication packet, Example) "000,100,255,"
- *   Data encoder performs the division into elements of data and calls the element encoder.
- *   Also, after encoding all elements, performs post-processing such as conversion to physical quantities.
- *   Data encoder is defined for each command, command name, command size,
- *   In addition to the configuration of elements (order, type and digit count of each element),
- *   Knows the reference to PacketData that stores information necessary for encoding.
- *   Also, holds information for encoding as PacketData type for each command.
+ *   Refers to the part of the communication packet excluding the header and footer, e.g., "000,100,255,"
+ *   The data encoder divides the data into elements and calls the element encoder.
+ *   Additionally, after encoding all elements, it performs post-processing such as conversion to physical quantities.
+ *   The data encoder is defined for each command, including the command name, command size,
+ *   the structure of elements (order, type, and digit count of each element), and
+ *   references to PacketData containing information necessary for encoding.
+ *   Additionally, it holds information for encoding as PacketData for each command.
  *
  * - element :
- *   Indicates the part with the header and footer removed from the communication packet Example) "000"
- *   Element encoder performs conversion between packet string <=> type of each element.
- *   Element encoder is defined for each notation (signed decimal, hexadecimal, etc.),
- *   Knows the format of each element (signed decimal is [+-][0-9]+).
+ *   Refers to the part of the communication packet excluding the header and footer, e.g., "000"
+ *   The element encoder converts between packet strings and the types of each element.
+ *   The element encoder is defined for each notation (e.g., signed decimal, hexadecimal).
+ *   Knows the format of each element (e.g., signed decimal is [+-][0-9]+).
  *
- * Each encoder has a parent-child relationship of frame->data->element.
- * Also, the design of encoder and decoder is symmetric.
+ * Each encoder has a parent-child relationship: frame->data->element.
+ * Additionally, the design of the encoder and decoder is symmetric.
  *
- * RobotHW updates the values of PacketData
+ * RobotHW updates the values in PacketData
  * Calls the Encode method of the frame encoder to perform encoding.
  *
  */
@@ -188,25 +188,25 @@ class PowerEcuComFrameEncoder {
   ~PowerEcuComFrameEncoder();
   /**
    * @brief Encode
-   * @param[out] buffer     Buffer for output
-   * @param[in] packet_name Name of the packet to encode for data search
-   * @return On success boost::system::error::success
+   * @param[out] buffer     Output buffer
+   * @param[in] packet_name Name of the packet to encode for data lookup
+   * @return On success: boost::system::error::success
    */
   boost::system::error_code Encode(PacketBuffer &buffer, const std::string &packet_name);
   /**
    * @brief Register data encoder
    * @param[in] encoder Encoder to register
-   * @return On success boost::system::errc::success
+   * @return On success: boost::system::errc::success
    */
   boost::system::error_code RegisterDataEncoder(DataEncoderType encoder);
 
   /**
-   * @brief Get pointer to data
+   * @brief Get the pointer to the data
    *
-   * @tparam T Type of data
+   * @tparam T Data type
    * @param[in] name Name of the data
    *
-   * @return On success: Pointer to data<br>
+   * @return On success: Pointer to the data<br>
    *         On failure: NULL<br>
    *         Failure occurs if the data name is unregistered or the data type does not match
    */
@@ -223,8 +223,8 @@ class PowerEcuComFrameEncoder {
 
  private:
   DataEncoderMap data_encoder_map_;         //!< Dictionary of data encoders
-  uint32_t check_sum_;                      //!< Temporary storage data for checksum calculation
-  IElementEncoder::Ptr check_sum_encoder_;  //!< Encoder to convert checksum value to string
+  uint32_t check_sum_;                      //!< Temporary storage for checksum calculation
+  IElementEncoder::Ptr check_sum_encoder_;  //!< Encoder for converting checksum value to string
 };
 }  // namespace hsrb_power_ecu
 #endif  // POWER_ECU_COM_FRAME_ENCODER_HPP_

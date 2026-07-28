@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -41,8 +41,8 @@ DAMAGE.
 namespace hsrb_power_ecu {
 
 /**
- * @brief Encoder for hexadecimal packets
- * Since conversion is performed internally using uint32_t,
+ * @brief Hexadecimal packet encoder
+ * Since it performs conversion using uint32_t internally,
  * The maximum number of digits is 8
  */
 template <class Input>
@@ -67,14 +67,14 @@ class ElementHexUintEncoder : public IElementEncoder {
 
   /**
    * @brief Encode
-   * @param[out] buffer The buffer for output
-   * @return true on successful encoding
+   * @param[out] buffer The output buffer
+   * @return True if encoding is successful
    */
   inline virtual bool Encode(PacketBuffer& buffer) {
     uint32_t current_value = static_cast<uint32_t>(value_);
     convert_buffer_.clear();
 
-    // Create hexadecimal characters from the lower digits
+    // Create hexadecimal characters from the least significant digit
     for (size_t i = 0; i < length_; ++i) {
       uint32_t v = current_value % 0x10;
       char h;
@@ -101,12 +101,12 @@ class ElementHexUintEncoder : public IElementEncoder {
  private:
   const Input& value_;          //!< The value to be encoded
   const size_t length_;         //!< Number of digits
-  std::string convert_buffer_;  //!< Buffer for conversion
+  std::string convert_buffer_;  //!< Conversion buffer
 };
 
 /**
- * @brief Class for creating hexadecimal messages with bit specification
- * Since conversion is performed internally using uint32_t,
+ * @brief Class for creating hexadecimal messages with bit specifications
+ * Since it performs conversion using uint32_t internally,
  * The maximum number of digits is 8
  */
 class ElementHexUintBitsEncoder : public ElementHexUintEncoder<uint32_t> {
@@ -130,8 +130,8 @@ class ElementHexUintBitsEncoder : public ElementHexUintEncoder<uint32_t> {
 
   /**
    * @brief Encode
-   * @param[out] buffer The buffer for output
-   * @return true on successful encoding
+   * @param[out] buffer The output buffer
+   * @return True if encoding is successful
    */
   inline virtual bool Encode(PacketBuffer& buffer) {
     value_ = 0;
@@ -144,10 +144,10 @@ class ElementHexUintBitsEncoder : public ElementHexUintEncoder<uint32_t> {
   }
 
   /**
-   * @brief Register bit address and the bool value to be evaluated
+   * @brief Register bit address and the boolean value to be evaluated
    *
-   * @param bit Address when the least significant bit during transmission (most significant bit in communication specification) is 0
-   * @param flag The bool value to be evaluated
+   * @param bit The address when the least significant bit during transmission (the most significant bit in the communication specification) is 0
+   * @param flag The boolean value to be evaluated
    *
    * @return
    */
@@ -169,8 +169,8 @@ class ElementHexUintBitsEncoder : public ElementHexUintEncoder<uint32_t> {
 };
 
 /**
- * @brief Encoder for decimal packets
- * Since conversion is performed internally using uint32_t,
+ * @brief Decimal packet encoder
+ * Since it performs conversion using uint32_t internally,
  * The maximum number of digits is 9
  */
 template <class Input>
@@ -195,14 +195,14 @@ class ElementUintEncoder : public IElementEncoder {
 
   /**
    * @brief Encode
-   * @param[out] buffer The buffer for output
-   * @return true on successful encoding
+   * @param[out] buffer The output buffer
+   * @return True if encoding is successful
    */
   inline virtual bool Encode(PacketBuffer& buffer) {
     uint32_t current_value = static_cast<uint32_t>(value_);
     convert_buffer_.clear();
 
-    // Create from the lower digits
+    // Create from the least significant digit
     for (size_t i = 0; i < length_; ++i) {
       uint32_t v = current_value % 10;
       char d;
@@ -226,7 +226,7 @@ class ElementUintEncoder : public IElementEncoder {
  private:
   const Input& value_;          //!< The value to be encoded
   const size_t length_;         //!< Number of digits
-  std::string convert_buffer_;  //!< Buffer for conversion
+  std::string convert_buffer_;  //!< Conversion buffer
 };
 
 class ElementStringEncoder : public IElementEncoder {
@@ -248,8 +248,8 @@ class ElementStringEncoder : public IElementEncoder {
 
   /**
    * @brief Encode
-   * @param[out] buffer The buffer for output
-   * @return true on successful encoding
+   * @param[out] buffer The output buffer
+   * @return True if encoding is successful
    */
   inline virtual bool Encode(PacketBuffer& buffer) {
     if (value_.size() != length_) return false;

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -39,17 +39,17 @@ DAMAGE.
 
 namespace hsrb_imu_sensor_protocol {
 
-/// Commands to send to MPU9150
+/// Command to send to MPU9150
 enum MPU9150Instruction {
-  /// Read sensor data
+  /// Sensor data reading
   kMPU9150InstructionReadData = 0x61,
   /// Reset
   kMPU9150InstructionReset = 0x72,
 };
 
-/// Gyro sensor values
+/// Gyro sensor value
 struct MPU9150State {
-  /// Orientation, in the order of xyzw for quaternion
+  /// Orientation, quaternion in the order of xyzw
   boost::array<double, 4> orientation;
   /// Angular velocity [rad/sec]
   boost::array<double, 3> angular_velocity;
@@ -60,7 +60,7 @@ struct MPU9150State {
 /// Class for communicating with Invensense's gyro sensor MPU9150
 class MPU9150Network : private boost::noncopyable {
  public:
-  /// @brief Constructor, secures communication
+  /// @brief Constructor, establishes communication
   /// @param [in] device_name Device name
   /// @param [out] error_code Error code
   MPU9150Network(std::string device_name, boost::system::error_code& error_out);
@@ -95,7 +95,7 @@ class MPU9150Network : private boost::noncopyable {
   /// @return int32_t Sleep tick [nanoseconds]
   int32_t sleep_tick() const { return sleep_tick_; }
 
-  /// @brief Return the packet received by the last Receive function
+  /// @brief Returns the packet received in the last Receive function
   /// @return const std::vector<uint8_t>& Packet
   const std::vector<uint8_t>& all_packets() const { return parser_.packets(); }
 
@@ -125,16 +125,16 @@ class MPU9150PacketConverter {
   /// Destructor, does nothing
   ~MPU9150PacketConverter() {}
 
-  /// @brief Convert packet from sensor to SensorState and output
-  /// @param [in] packet Packet from sensor
-  /// @param [out] orientation Orientation, in the order of xyzw for quaternion
+  /// @brief Converts packets from the sensor to SensorState and outputs
+  /// @param [in] packet Packet from the sensor
+  /// @param [out] orientation Orientation, quaternion in the order of xyzw
   /// @param [out] angular_velocity Angular velocity [rad/sec]
   /// @param [out] linear_acceleration Acceleration [m/sec^2]
   void ToSensorState(const std::vector<uint8_t>& packet, boost::array<double, 4>& orientation,
                      boost::array<double, 3>& angular_velocity, boost::array<double, 3>& linear_acceleration);
 
-  /// @brief Convert packet from sensor to SensorState and output
-  /// @param [in] packet Packet from sensor
+  /// @brief Converts packets from the sensor to SensorState and outputs
+  /// @param [in] packet Packet from the sensor
   /// @param [out] sensor_state Converted values
   void ToSensorState(const std::vector<uint8_t>& packet, MPU9150State& sensor_state);
 

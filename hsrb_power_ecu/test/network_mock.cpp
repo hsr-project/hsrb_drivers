@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -51,7 +51,7 @@ DAMAGE.
 #include "common_methods.hpp"
 
 namespace {
-//!< Packet list that should return ACK
+//!< List of packets that should return ACK
 const char kNeedAckPackets[20][9] = {"H,time_,", "H,pdown,", "H,start,", "H,stop_,", "H,heart,",
                                      "H,pump_,", "H,pbmsw,", "H,ledc_,", "H,g_res,", "H,solsw,",
                                      "H,pdcmd,", "H,mute_,", "H,rpros,", "H,rprod,", "H,rproe,",
@@ -113,7 +113,7 @@ boost::system::error_code NetworkMock::Configure(const std::string &param, const
 
 /**
  * @brief Change network settings
- * Consider maintainability and consolidate actual processing into those with string value.
+ * For maintainability, actual processing is consolidated for values where the type is string.
  * @param[in] param Setting name
  * @param[in] value Change value
  * @return boost::system::errc::success on successful transmission
@@ -137,8 +137,8 @@ boost::system::error_code NetworkMock::Configure(const std::string &param, const
 
 /**
  * @brief Send
- * Send all contents of the transmission data buffer received as an argument within the timeout period
- * @param[in] data Transmission data buffer
+ * Within the timeout period, send all contents of the buffer received as an argument.
+ * @param[in] data Buffer of transmission data
  * @return boost::system::errc::success on successful transmission
  */
 boost::system::error_code NetworkMock::Send(const PacketBuffer &data) {
@@ -164,8 +164,8 @@ boost::system::error_code NetworkMock::Send(const PacketBuffer &data) {
 /**
  * @brief Receive
  * Store transmission data at the end of the buffer.
- * If there is no received data, wait for reception within the timeout period.
- * @param[out] data Receive buffer
+ * If no reception data exists, wait for reception within the timeout period.
+ * @param[out] data Reception buffer
  * @return
  */
 boost::system::error_code NetworkMock::Receive(PacketBuffer &data) {

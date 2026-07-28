@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -49,51 +49,51 @@ class PowerEcuComEcu1DataDecoder : public hsrb_power_ecu::IPowerEcuComDataDecode
 
  public:
   /**
-   * @brief Member variable pointer container of hw class for ecu1 command
+   * @brief Member variable pointer container for hw class of ecu1 command
    */
   struct PacketData {
     uint32_t time_stamp;                             //!< Timestamp [ms]
-    std::string ecu1_date;                           //!< Date YYYYMMDDhhmmss
+    std::string ecu1_date;                           //!< Date and time YYYYMMDDhhmmss
     std::string power_ecu_status_flag;               //!< Power ECU status S part
     std::string diag_status;                         //!< Diagnostic information 32-digit hexadecimal
-    double battery_total_capacity;                   //!< Battery total capacity [mAh]
-    double battery_remaining_capacity;               //!< Battery remaining capacity [mAh]
-    double electric_current;                         //!< Electric current [mA]
+    double battery_total_capacity;                   //!< Total battery capacity [mAh]
+    double battery_remaining_capacity;               //!< Remaining battery capacity [mAh]
+    double electric_current;                         //!< Electric current value [mA]
     double battery_voltage;                          //!< Battery voltage [mV]
     double battery_temperature;                      //!< Battery temperature [C]
-    bool is_battery_crgov;                           //!< Overcharge 1: Overcharge
-    bool is_battery_23par;                           //!< Parallel number 0: 2 parallel 1: 3 parallel
-    bool is_battery_std;                             //!< Learning permission 1: Learning permission
-    bool is_battery_full;                            //!< Full charge 1: Full charge state
-    bool is_battery_discov;                          //!< Overdischarge 1: Overdischarge
-    bool is_battery_chg;                             //!< Charging permission 1: Charging permission
-    bool is_battery_disc;                            //!< Discharge permission 1: Discharge permission
-    bool is_battery_0per;                            //!< 0% detection 1: 0% detection state
-    bool is_battery_45par;                           //!< Parallel number 0: 4 parallel 1: 5 parallel
-    bool is_battery_sel;                             //!< Minimum cell voltage 0% detection state 1: 0% detection state
-    bool is_battery_bal;                             //!< Cell balance collapse 1: Collapse
-    uint16_t battery_initial_learning_capacity;      //!< Battery initial learning capacity [mAh]
-    uint16_t battery_error_status;                   //!< Battery error status Specification undefined
+    bool is_battery_crgov;                           //!< Overcharge 1: Overcharged
+    bool is_battery_23par;                           //!< Parallel count 0: 2 parallel 1: 3 parallel
+    bool is_battery_std;                             //!< Learning permission 1: Learning permitted
+    bool is_battery_full;                            //!< Full charge 1: Fully charged state
+    bool is_battery_discov;                          //!< Over-discharge 1: Over-discharged
+    bool is_battery_chg;                             //!< Charging permission 1: Charging permitted
+    bool is_battery_disc;                            //!< Discharge permission 1: Discharge permitted
+    bool is_battery_0per;                            //!< 0% detection 1: 0% detected state
+    bool is_battery_45par;                           //!< Parallel count 0: 4 parallel 1: 5 parallel
+    bool is_battery_sel;                             //!< Minimum cell voltage 0% detected state 1: 0% detected state
+    bool is_battery_bal;                             //!< Cell balance disruption 1: Disrupted
+    uint16_t battery_initial_learning_capacity;      //!< Initial battery learning capacity [mAh]
+    uint16_t battery_error_status;                   //!< Battery error status Undefined specification
     double battery_relative_capacity;                //!< Relative capacity [%]
     uint32_t power_ecu_internal_state;               //!< (New) Number of S** in 4.5.3 Power ECU internal state
     bool is_powerecu_bat_stat;                       //!< (New) Battery charging state
-    bool is_powerecu_sw_kinoko;                      //!< (New) Wired emergency stop SW
-    bool is_powerecu_sw_pwr;                         //!< (New) Power (Prius SW)
-    bool is_powerecu_sw_drv;                         //!< (New) Drive SW
-    bool is_powerecu_sw_latch;                       //!< (New) Latch release SW
-    bool is_powerecu_sw_w_sel;                       //!< (New) Wireless switch SW
-    bool is_powerecu_sw_w_stop;                      //!< (New) Wireless emergency stop SW
-    bool is_bumper_bumper2;                          //!< Bumper sensor state 2 1: Contact present
-    bool is_bumper_bumper1;                          //!< Bumper sensor state 1 1: Contact present
-    bool is_bumper_prox5;                            //!< Proximity sensor latch state 5 1: Proximity object present
-    bool is_bumper_prox4;                            //!< Proximity sensor latch state 4 1: Proximity object present
-    bool is_bumper_prox3;                            //!< Proximity sensor latch state 3 1: Proximity object present
-    bool is_bumper_prox2;                            //!< Proximity sensor latch state 2 1: Proximity object present
-    bool is_bumper_prox1;                            //!< Proximity sensor latch state 1 1: Proximity object present
+    bool is_powerecu_sw_kinoko;                      //!< (New) Wired emergency stop switch
+    bool is_powerecu_sw_pwr;                         //!< (New) Power (Prius switch)
+    bool is_powerecu_sw_drv;                         //!< (New) Drive switch
+    bool is_powerecu_sw_latch;                       //!< (New) Latch release switch
+    bool is_powerecu_sw_w_sel;                       //!< (New) Wireless switch
+    bool is_powerecu_sw_w_stop;                      //!< (New) Wireless emergency stop switch
+    bool is_bumper_bumper2;                          //!< Bumper sensor state 2 1: Contact detected
+    bool is_bumper_bumper1;                          //!< Bumper sensor state 1 1: Contact detected
+    bool is_bumper_prox5;                            //!< Proximity sensor latch state 5 1: Proximity detected
+    bool is_bumper_prox4;                            //!< Proximity sensor latch state 4 1: Proximity detected
+    bool is_bumper_prox3;                            //!< Proximity sensor latch state 3 1: Proximity detected
+    bool is_bumper_prox2;                            //!< Proximity sensor latch state 2 1: Proximity detected
+    bool is_bumper_prox1;                            //!< Proximity sensor latch state 1 1: Proximity detected
     std::string gyro_status;                         //!< (New) Gyro attitude angle calculation status
     boost::array<double, 4> imu_quaternions;         //!< quaternion x,y,z,t -1.0~1.0
-    boost::array<double, 3> imu_angular_velocities;  //!< Angular velocity x,y,z [rad/s]
-    boost::array<double, 3> imu_accelerations;       //!< Acceleration x,y,z [m/s^2]
+    boost::array<double, 3> imu_angular_velocities;  //!< Angular velocity x, y, z [rad/s]
+    boost::array<double, 3> imu_accelerations;       //!< Acceleration x, y, z [m/s^2]
     uint8_t charger_state;                           //!< Automatic charging status
   };
 
@@ -102,32 +102,32 @@ class PowerEcuComEcu1DataDecoder : public hsrb_power_ecu::IPowerEcuComDataDecode
    * @brief Internal container for receiving packet data
    */
   struct PacketRawData {
-    uint32_t time_stamp;                         //!< Timestamp 10-digit decimal
-    std::string date;                            //!< Date character
-    std::string power_ecu_status_flag;           //!< Power ECU status 2-digit hexadecimal
-    std::string power_ecu_status;                //!< (New) Power ECU state 16-digit hexadecimal
-    std::string diag_status;                     //!< uint816 Diagnostic information 32-digit hexadecimal
-    uint16_t battery_total_capacity;             //!< Battery total capacity Signed 5-digit decimal
-    uint16_t battery_remaining_capacity;         //!< Battery remaining capacity Signed 5-digit decimal
-    int16_t electric_current;                    //!< Electric current Signed 5-digit decimal
-    uint16_t battery_voltage;                    //!< Battery voltage Signed 5-digit decimal
-    int8_t battery_temperature;                  //!< Battery temperature Signed 3-digit decimal
-    uint16_t battery_state_flag;                 //!< Battery state flag 4-digit hexadecimal
-    uint16_t battery_initial_learning_capacity;  //!< Battery initial learning capacity 5-digit decimal
-    uint16_t battery_error_status;               //!< Battery error status 4-digit hexadecimal
-    uint8_t battery_relative_capacity;           //!< Relative capacity 3-digit decimal
-    uint8_t bumper_status;                       //!< Proximity, bumper sensor state 2-digit hexadecimal
-    std::string gyro_status;                     //!< (New) Gyro attitude angle calculation status 16-digit hexadecimal
-    int32_t quaternion_t;                        //!< quaternion_t Signed 10-digit decimal
-    int32_t quaternion_x;                        //!< quaternion_x Signed 10-digit decimal
-    int32_t quaternion_y;                        //!< quaternion_y Signed 10-digit decimal
-    int32_t quaternion_z;                        //!< quaternion_z Signed 10-digit decimal
-    int32_t angular_velocity_x;                  //!< Angular velocity x Signed 10-digit decimal
-    int32_t angular_velocity_y;                  //!< Angular velocity y Signed 10-digit decimal
-    int32_t angular_velocity_z;                  //!< Angular velocity z Signed 10-digit decimal
-    int32_t acceleration_x;                      //!< Acceleration x Signed 10-digit decimal
-    int32_t acceleration_y;                      //!< Acceleration y Signed 10-digit decimal
-    int32_t acceleration_z;                      //!< Acceleration z Signed 10-digit decimal
+    uint32_t time_stamp;                         //!< Timestamp Decimal 10 digits
+    std::string date;                            //!< Date and time String
+    std::string power_ecu_status_flag;           //!< Power ECU status Hexadecimal 2 digits
+    std::string power_ecu_status;                //!< (New) Power ECU state Hexadecimal 16 digits
+    std::string diag_status;                     //!< uint816 Diagnostic information Hexadecimal 32 digits
+    uint16_t battery_total_capacity;             //!< Total battery capacity Signed Decimal 5 digits
+    uint16_t battery_remaining_capacity;         //!< Remaining battery capacity Signed Decimal 5 digits
+    int16_t electric_current;                    //!< Electric current Signed Decimal 5 digits
+    uint16_t battery_voltage;                    //!< Battery voltage Signed Decimal 5 digits
+    int8_t battery_temperature;                  //!< Battery temperature Signed Decimal 3 digits
+    uint16_t battery_state_flag;                 //!< Battery state flag Hexadecimal 4 digits
+    uint16_t battery_initial_learning_capacity;  //!< Initial battery learning capacity Decimal 5 digits
+    uint16_t battery_error_status;               //!< Battery error status Hexadecimal 4 digits
+    uint8_t battery_relative_capacity;           //!< Relative capacity Decimal 3 digits
+    uint8_t bumper_status;                       //!< Proximity, bumper sensor state Hexadecimal 2 digits
+    std::string gyro_status;                     //!< (New) Gyro attitude angle calculation status Hexadecimal 16 digits
+    int32_t quaternion_t;                        //!< quaternion_t Signed Decimal 10 digits
+    int32_t quaternion_x;                        //!< quaternion_x Signed Decimal 10 digits
+    int32_t quaternion_y;                        //!< quaternion_y Signed Decimal 10 digits
+    int32_t quaternion_z;                        //!< quaternion_z Signed Decimal 10 digits
+    int32_t angular_velocity_x;                  //!< Angular velocity x Signed Decimal 10 digits
+    int32_t angular_velocity_y;                  //!< Angular velocity y Signed Decimal 10 digits
+    int32_t angular_velocity_z;                  //!< Angular velocity z Signed Decimal 10 digits
+    int32_t acceleration_x;                      //!< Acceleration x Signed Decimal 10 digits
+    int32_t acceleration_y;                      //!< Acceleration y Signed Decimal 10 digits
+    int32_t acceleration_z;                      //!< Acceleration z Signed Decimal 10 digits
     uint8_t charger_state;                       //!< Automatic charging status
   };
 
@@ -168,46 +168,46 @@ class PowerEcuComEcu2DataDecoder : public hsrb_power_ecu::IPowerEcuComDataDecode
   * @brief Packet data for ecu2 command
   */
   struct PacketData {
-    std::string ecu2_date;               //!< Date (YYYYMMDDhhmmss) character
-    uint16_t d12V_D0_V;                  //!< 12Vd0 voltage [mV] Sign 1 digit + 5-digit decimal
-    int16_t d12V_D0_A;                   //!< 12Vd0 current [mA] Sign 1 digit + 5-digit decimal
-    uint16_t d12V_D1_V;                  //!< 12Vd1 voltage [mV] Sign 1 digit 5-digit decimal
-    int16_t d12V_D1_A;                   //!< 12Vd1 current [mA] Sign 1 digit 5-digit decimal
-    uint16_t d12V_D2_V;                  //!< 12Vd2 voltage [mV] Sign 1 digit 5-digit decimal
-    int16_t d12V_D2_A;                   //!< 12Vd2 current [mA] Sign 1 digit 5-digit decimal
-    uint16_t d12V_D3_V;                  //!< 12Vd3 voltage [mV] Sign 1 digit 5-digit decimal
-    int16_t d12V_D3_A;                   //!< 12Vd3 current [mA] Sign 1 digit 5-digit decimal
-    uint16_t d12V_O1_V;                  //!< 12Vo1 voltage [mV] Sign 1 digit 5-digit decimal
-    int16_t d12V_O1_A;                   //!< 12Vo1 current [mA] Sign 1 digit 5-digit decimal
-    uint16_t d12V_O2_V;                  //!< 12Vo2 voltage [mV] Sign 1 digit 5-digit decimal
-    int16_t d12V_O2_A;                   //!< 12Vo2 current [mA] Sign 1 digit 5-digit decimal
-    uint16_t d5VA_V;                     //!< 5Va voltage [mV] Sign 1 digit 5-digit decimal
-    uint16_t d5VD1_V;                    //!< 5Vd1 voltage [mV] Sign 1 digit 5-digit decimal
-    int16_t d5VD1_A;                     //!< 5Vd1 current [mA] Sign 1 digit 5-digit decimal
-    uint16_t d5VD2_V;                    //!< 5Vd2 voltage [mV] Sign 1 digit 5-digit decimal
-    int16_t d5VD2_A;                     //!< 5Vd2 current [mA] Sign 1 digit 5-digit decimal
-    uint16_t d5VD3_V;                    //!< 5Vd3 voltage [mV] Sign 1 digit 5-digit decimal
-    int16_t d5VD3_A;                     //!< 5Vd3 current [mA] Sign 1 digit 5-digit decimal
-    uint16_t d5VD4_V;                    //!< 5Vd4 voltage [mV] Sign 1 digit 5-digit decimal
-    int16_t d5VD4_A;                     //!< 5Vd4 current [mA] Sign 1 digit 5-digit decimal
-    uint16_t d5VD5_V;                    //!< 5Vd5 voltage [mV] Sign 1 digit 5-digit decimal
-    int16_t d5VD5_A;                     //!< 5Vd5 current [mA] Sign 1 digit 5-digit decimal
-    uint16_t Chgsense;                   //!< Automatic sequential power insertion/removal terminal voltage [mV] Sign 1 digit 5-digit decimal
-    uint16_t d2V5VDA1_V;                 //!< 2.5Va1 voltage (A/D1) [mV] Sign 1 digit 5-digit decimal
-    uint16_t d2V5VDA2_V;                 //!< 2.5Va2 voltage (A/D2) [mV] Sign 1 digit 5-digit decimal
-    uint16_t ACDC_V;                     //!< ACDC voltage [mV] Sign 1 digit 5-digit decimal
-    int16_t ADCD_A;                      //!< ACDC current [mA] Sign 1 digit 5-digit decimal
-    uint16_t BATT_V;                     //!< BATT voltage [mV] Sign 1 digit 5-digit decimal
-    int16_t BATT_A;                      //!< BATT current [mA] Sign 1 digit 5-digit decimal
-    int16_t BATT_A2;                     //!< BATT current 2 [10mA] Sign 1 digit 5-digit decimal
-    uint16_t PBM_V;                      //!< PBM voltage [mV] Sign 1 digit 5-digit decimal
-    int16_t PBM_A;                       //!< PBM current [mA] Sign 1 digit 5-digit decimal
-    int16_t PBM_A2;                      //!< PBM current 2 [10mA] Sign 1 digit 5-digit decimal
-    uint16_t PUMP_V;                     //!< Pump sensor voltage [mV] Sign 1 digit 5-digit decimal
-    int16_t ECU_TEMP;                    //!< Power ECU temperature [℃] Sign 1 digit 3-digit decimal
-    int16_t ECU_TEMP1;                   //!< Power ECU temperature 1 [℃] Sign 1 digit 3-digit decimal
-    int16_t ECU_TEMP2;                   //!< Power ECU temperature 2 [℃] Sign 1 digit 3-digit decimal
-    int16_t ECU_TEMP3;                   //!< Power ECU temperature 3 [℃] Sign 1 digit 3-digit decimal
+    std::string ecu2_date;               //!< Date and time (YYYYMMDDhhmmss) String
+    uint16_t d12V_D0_V;                  //!< 12Vd0 voltage [mV] Signed 1 digit + Decimal 5 digits
+    int16_t d12V_D0_A;                   //!< 12Vd0 current [mA] Signed 1 digit + Decimal 5 digits
+    uint16_t d12V_D1_V;                  //!< 12Vd1 voltage [mV] Signed 1 digit Decimal 5 digits
+    int16_t d12V_D1_A;                   //!< 12Vd1 current [mA] Signed 1 digit Decimal 5 digits
+    uint16_t d12V_D2_V;                  //!< 12Vd2 voltage [mV] Signed 1 digit Decimal 5 digits
+    int16_t d12V_D2_A;                   //!< 12Vd2 current [mA] Signed 1 digit Decimal 5 digits
+    uint16_t d12V_D3_V;                  //!< 12Vd3 voltage [mV] Signed 1 digit Decimal 5 digits
+    int16_t d12V_D3_A;                   //!< 12Vd3 current [mA] Signed 1 digit Decimal 5 digits
+    uint16_t d12V_O1_V;                  //!< 12Vo1 voltage [mV] Signed 1 digit Decimal 5 digits
+    int16_t d12V_O1_A;                   //!< 12Vo1 current [mA] Signed 1 digit Decimal 5 digits
+    uint16_t d12V_O2_V;                  //!< 12Vo2 voltage [mV] Signed 1 digit Decimal 5 digits
+    int16_t d12V_O2_A;                   //!< 12Vo2 current [mA] Signed 1 digit Decimal 5 digits
+    uint16_t d5VA_V;                     //!< 5Va voltage [mV] Signed 1 digit Decimal 5 digits
+    uint16_t d5VD1_V;                    //!< 5Vd1 voltage [mV] Signed 1 digit Decimal 5 digits
+    int16_t d5VD1_A;                     //!< 5Vd1 current [mA] Signed 1 digit Decimal 5 digits
+    uint16_t d5VD2_V;                    //!< 5Vd2 voltage [mV] Signed 1 digit Decimal 5 digits
+    int16_t d5VD2_A;                     //!< 5Vd2 current [mA] Signed 1 digit Decimal 5 digits
+    uint16_t d5VD3_V;                    //!< 5Vd3 voltage [mV] Signed 1 digit Decimal 5 digits
+    int16_t d5VD3_A;                     //!< 5Vd3 current [mA] Signed 1 digit Decimal 5 digits
+    uint16_t d5VD4_V;                    //!< 5Vd4 voltage [mV] Signed 1 digit Decimal 5 digits
+    int16_t d5VD4_A;                     //!< 5Vd4 current [mA] Signed 1 digit Decimal 5 digits
+    uint16_t d5VD5_V;                    //!< 5Vd5 voltage [mV] Signed 1 digit Decimal 5 digits
+    int16_t d5VD5_A;                     //!< 5Vd5 current [mA] Signed 1 digit Decimal 5 digits
+    uint16_t Chgsense;                   //!< Automatic sequential charging terminal voltage [mV] Signed 1 digit Decimal 5 digits
+    uint16_t d2V5VDA1_V;                 //!< 2.5Va1 voltage (A/D1) [mV] Signed 1 digit Decimal 5 digits
+    uint16_t d2V5VDA2_V;                 //!< 2.5Va2 voltage (A/D2) [mV] Signed 1 digit Decimal 5 digits
+    uint16_t ACDC_V;                     //!< ACDC voltage [mV] Signed 1 digit Decimal 5 digits
+    int16_t ADCD_A;                      //!< ACDC current [mA] Signed 1 digit Decimal 5 digits
+    uint16_t BATT_V;                     //!< BATT voltage [mV] Signed 1 digit Decimal 5 digits
+    int16_t BATT_A;                      //!< BATT current [mA] Signed 1 digit Decimal 5 digits
+    int16_t BATT_A2;                     //!< BATT current 2 [10mA] Signed 1 digit Decimal 5 digits
+    uint16_t PBM_V;                      //!< PBM voltage [mV] Signed 1 digit Decimal 5 digits
+    int16_t PBM_A;                       //!< PBM current [mA] Signed 1 digit Decimal 5 digits
+    int16_t PBM_A2;                      //!< PBM current 2 [10mA] Signed 1 digit Decimal 5 digits
+    uint16_t PUMP_V;                     //!< Pump sensor voltage [mV] Signed 1 digit Decimal 5 digits
+    int16_t ECU_TEMP;                    //!< Power ECU temperature [℃] Signed 1 digit Decimal 3 digits
+    int16_t ECU_TEMP1;                   //!< Power ECU temperature 1 [℃] Signed 1 digit Decimal 3 digits
+    int16_t ECU_TEMP2;                   //!< Power ECU temperature 2 [℃] Signed 1 digit Decimal 3 digits
+    int16_t ECU_TEMP3;                   //!< Power ECU temperature 3 [℃] Signed 1 digit Decimal 3 digits
   };
 
   /**
@@ -246,7 +246,7 @@ class PowerEcuComRxackDataDecoder : public hsrb_power_ecu::IPowerEcuComDataDecod
      * @brief Constructor
      */
     PacketData() : is_receive_ack(false), ack_value(0) {}
-    bool is_receive_ack;  //!< Whether Ack was returned
+    bool is_receive_ack;  //!< Whether Ack was received
     uint8_t ack_value;    //!< Return value of reply command
   };
 
@@ -284,8 +284,8 @@ class PowerEcuComVerDataDecoder : public hsrb_power_ecu::IPowerEcuComDataDecoder
    */
   struct PacketData {
     PacketData() : is_receive_version(false) {}
-    std::string ver_power_ecu_version;      //!< Power ECU firmware Ver [git hash 20 bytes] 40-digit hexadecimal
-    std::string ver_power_ecu_com_version;  //!< Power ECU communication structure HASH [hash 20 bytes] 40-digit hexadecimal
+    std::string ver_power_ecu_version;      //!< Power ECU firmware Ver [git hash 20 bytes] Hexadecimal 40 digits
+    std::string ver_power_ecu_com_version;  //!< Power ECU communication structure HASH [hash 20 bytes] Hexadecimal 40 digits
     bool is_receive_version;                //!< Whether Ver command was received
   };
 
@@ -307,8 +307,8 @@ class PowerEcuComVerDataDecoder : public hsrb_power_ecu::IPowerEcuComDataDecoder
   virtual bool Update();
 
   PacketData packet_data_;                 //!< Packet data
-  std::string power_ecu_version_raw_;      //!< Power ECU firmware Ver [git hash 20 bytes] 40-digit hexadecimal
-  std::string power_ecu_com_version_raw_;  //!< Power ECU communication structure HASH [hash 20 bytes] 40-digit hexadecimal
+  std::string power_ecu_version_raw_;      //!< Power ECU firmware Ver [git hash 20 bytes] Hexadecimal 40 digits
+  std::string power_ecu_com_version_raw_;  //!< Power ECU communication structure HASH [hash 20 bytes] Hexadecimal 40 digits
 };
 
 }  // namespace hsrb_power_ecu

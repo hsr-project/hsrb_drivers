@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -114,13 +114,13 @@ const std::map<uint32_t, std::string> kDiagnosticsErrors = {
     {69, "12Vd3 fault"},
     {70, "12Vo2 fault"},
     {71, "12Vd0/Vd1/Vo1 fault"},
-    {80, "Regenerative circuit error"},
-    {81, "Regenerative circuit overload error"},
+    {80, "Regeneration circuit error"},
+    {81, "Regeneration circuit overload error"},
     {104, "SPI4 communication error"},
     {105, "I2C communication error"},
     {106, "CPU communication error"},
     {107, "A/D converter (control system) error"},
-    {108, "OFF process error 12Vd2 (ACDC power)"},
+    {108, "OFF process error 12Vd2 (ACDC power supply)"},
     {109, "OFF process error 12Vd2 (battery)"},
     {144, "Unable to create log file"},
     {145, "Unable to create folder"},
@@ -131,12 +131,12 @@ const std::map<uint32_t, std::string> kDiagnosticsErrors = {
     {161, "s1 initial error (initial)"},
     {162, "s2 initial error (initial)"},
     {163, "s3 initial error (initial)"},
-    {164, "Gyro Pitch stuck error"},
-    {165, "Gyro Roll stuck error"},
-    {166, "Gyro Yaw stuck error"},
-    {167, "Acceleration X stuck error"},
-    {168, "Acceleration Y stuck error"},
-    {169, "Acceleration Z stuck error"},
+    {164, "Gyro pitch sticking error"},
+    {165, "Gyro roll sticking error"},
+    {166, "Gyro yaw sticking error"},
+    {167, "Acceleration X sticking error"},
+    {168, "Acceleration Y sticking error"},
+    {169, "Acceleration Z sticking error"},
     {170, "Gyro double fault"},
     {171, "Acceleration double fault"},
     {172, "Quaternion reset error"},
@@ -153,15 +153,15 @@ const std::map<uint32_t, std::string> kDiagnosticsErrors = {
     {210, "Battery discharge temperature error (high temperature)"},
     {211, "Battery discharge temperature error (low temperature)"},
     {212, "Battery temperature comparison error"},
-    {213, "Cell charge temperature warning"},
+    {213, "Cell charging temperature warning"},
     {224, "Initial check voltage signal ① circuit error"},
     {225, "Initial check voltage signal ② circuit error"},
     {226, "Initial check voltage signal ③ circuit error"},
-    {227, "ACDC power A/D converter error"},
-    {228, "ACDC power (PCA) communication error"},
+    {227, "ACDC power supply A/D converter error"},
+    {228, "ACDC power supply (PCA) communication error"},
     {229, "Power ECU communication error"},
     {230, "Output connector error"},
-    {231, "ACDC power operation error"},
+    {231, "ACDC power supply operation error"},
     {232, "PWR-003 power MOS error"},
     {233, "DC output overvoltage"},
     {234, "DC output voltage drop"},
@@ -190,7 +190,7 @@ std::vector<uint32_t> ParseDiagStatus(const std::string& diag_status) {
 void PrintDiagStatus(const std::string& diag_status) {
   std::cout << "diag_status: ";
 
-  // Assuming multiples of 16bit like 256bit
+  // 256bit like 16bit multiples assumed
   uint32_t space_count = 4;
   for (auto i = 0u; i < diag_status.size(); ++i) {
     if (space_count == 0) {
@@ -224,14 +224,14 @@ int32_t main(int32_t argc, char** argv) {
     if (argc == 2) {
       // When there is one option
       if (std::string(argv[1]) == "--help") {
-        // No error returned when --help is specified
+        // --help specified does not return an error
         can_run = false;
         is_display_help = true;
       } else {
         port_name = argv[1];
       }
     } else {
-      // Error when there are no command line arguments or more than two
+      // Error when no command line arguments or more than two
       can_run = false;
     }
 

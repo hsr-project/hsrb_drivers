@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -26,7 +26,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 DAMAGE.
 */
 /// @brief Provides a class for communicating with Invensense's gyro sensor MPU9150
-/// @brief Refer to the communication specifications in arduino_sketches/tmc_invensense_mpu9150_firmware
+/// @brief Communication specifications are in arduino_skethces/tmc_invensense_mpu9150_firmware
 /// @brief Refer to Readme.md
 #include <time.h>
 #include <algorithm>
@@ -225,7 +225,7 @@ MPU9150PacketConverter::MPU9150PacketConverter() : last_timestamp_(0), last_pack
 void MPU9150PacketConverter::ToSensorState(const std::vector<uint8_t>& packet, boost::array<double, 4>& orientation,
                                            boost::array<double, 3>& angular_velocity,
                                            boost::array<double, 3>& linear_acceleration) {
-  // Check if the packet meets the specifications
+  // Check if the packet meets specifications
   if (packet.size() != kPacketSize) {
     return;
   }
@@ -246,7 +246,7 @@ void MPU9150PacketConverter::ToSensorState(const std::vector<uint8_t>& packet, b
 
 // Convert packets from the sensor to SensorState and output
 void MPU9150PacketConverter::ToSensorState(const std::vector<uint8_t>& packets, MPU9150State& sensor_state) {
-  // If mixed with data other than streaming data, exit without doing anything
+  // If non-streaming data is mixed, terminate without doing anything
   if (packets.size() % kPacketSize != 0) {
     return;
   }

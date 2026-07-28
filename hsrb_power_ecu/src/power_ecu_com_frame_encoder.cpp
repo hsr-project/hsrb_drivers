@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2024 TOYOTA MOTOR CORPORATION
+Copyright (c) 2026 TOYOTA MOTOR CORPORATION
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted (subject to the limitations in the disclaimer
@@ -37,7 +37,7 @@ DAMAGE.
 namespace hsrb_power_ecu {
 
 PowerEcuComFrameEncoder::PowerEcuComFrameEncoder() : check_sum_(0) {
-  // Allocate buffer for checksum creation
+  // Buffer allocation for checksum creation
   check_sum_encoder_ = boost::make_shared<hsrb_power_ecu::ElementHexUintEncoder<uint32_t> >(check_sum_, 8);
 }
 
@@ -50,13 +50,13 @@ PowerEcuComFrameEncoder::~PowerEcuComFrameEncoder() {}
  * @return boost::system::error::success on success
  */
 boost::system::error_code PowerEcuComFrameEncoder::Encode(PacketBuffer &buffer, const std::string &packet_name) {
-  //// Search for corresponding encoder
+  //// Search for the corresponding encoder
   DataEncoderMap::iterator map_it = data_encoder_map_.find(packet_name);
   if (map_it == data_encoder_map_.end()) {
     return boost::system::errc::make_error_code(boost::system::errc::invalid_argument);
   }
 
-  // Create frame
+  // Frame creation
   //// Leading string
   buffer.push_back('H');
   buffer.push_back(',');
@@ -70,11 +70,11 @@ boost::system::error_code PowerEcuComFrameEncoder::Encode(PacketBuffer &buffer, 
   std::copy(packet_size.begin(), packet_size.end(), std::back_inserter(buffer));
   buffer.push_back(',');
 
-  // Encode data section
-  //// Encode data section
+  // Data section encoding
+  //// Data section encoding
   map_it->second->Encode(buffer);
 
-  // Create checksum
+  // Checksum creation
   check_sum_ = hsrb_power_ecu::com_common::CalculateCrc32(buffer.begin(), buffer.end());
   check_sum_encoder_->Encode(buffer);
   buffer.push_back(',');
@@ -84,17 +84,17 @@ boost::system::error_code PowerEcuComFrameEncoder::Encode(PacketBuffer &buffer, 
 }
 
 /**
- * @brief Register data encoder
+ * @brief Data encoder registration
  * @param[in] encoder Encoder to register
  * @return boost::system::errc::success on success
  */
 boost::system::error_code PowerEcuComFrameEncoder::RegisterDataEncoder(DataEncoderType encoder) {
-  // Error when pointer is invalid or data encoder is duplicated
+  // Error for invalid pointer or duplicate data encoder
   if (encoder == NULL || data_encoder_map_.find(encoder->GetPacketName()) != data_encoder_map_.end()) {
     return boost::system::errc::make_error_code(boost::system::errc::invalid_argument);
   }
 
-  // Register
+  // Registration
   data_encoder_map_[encoder->GetPacketName()] = encoder;
 
   return boost::system::errc::make_error_code(boost::system::errc::success);
